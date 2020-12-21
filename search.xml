@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>N1BOOK Writeup</title>
+    <url>/blog/N1BOOK-Writeup/</url>
+    <content><![CDATA[<h1 id="0x00-背景"><a href="#0x00-背景" class="headerlink" title="0x00 背景"></a>0x00 背景</h1><p>一直想为开源社区贡献一点东西，趁着这段时间有机会，决定把<span class="exturl" data-url="aHR0cHM6Ly9idXVvai5jbi9jaGFsbGVuZ2Vz" title="https://buuoj.cn/challenges">BUUCTF<i class="fa fa-external-link"></i></span>的题刷一下。主要是重新回顾一下WEB、N1BOOK和REAL部分的题，积累相关测试经验，如果能够帮助到其他人，也算是没白写Writeup。<br><br>项目地址<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUA==" title="https://github.com/Jason1314Zhang/BUUCTF-WP">BUUCTF-WP<i class="fa fa-external-link"></i></span>，如果觉得做得可以的话可以Fork，欢迎提PR。</p>
+<a id="more"></a>
+<h2 id="做题情况"><a href="#做题情况" class="headerlink" title="做题情况"></a>做题情况</h2><h3 id="1-N1BOOK"><a href="#1-N1BOOK" class="headerlink" title="1. N1BOOK"></a>1. N1BOOK</h3><ol>
+<li>WEB入门<ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vTjFCT09LL1vnrKzkuIDnq6AlMjB3ZWLlhaXpl6hd57KX5b+D55qE5bCP5p2OLm1k" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/N1BOOK/[第一章%20web入门]粗心的小李.md">粗心的小李<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vTjFCT09LL1vnrKzkuIDnq6AlMjB3ZWLlhaXpl6hd5bi46KeB55qE5pCc6ZuGLm1k" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/N1BOOK/[第一章%20web入门]常见的搜集.md">常见的搜集<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vTjFCT09LL1vnrKzkuIDnq6AlMjB3ZWLlhaXpl6hdc3Fs5rOo5YWlLTEubWQ=" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/N1BOOK/[第一章%20web入门]sql注入-1.md">sql注入-1<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vTjFCT09LL1vnrKzkuIDnq6AlMjB3ZWLlhaXpl6hdc3Fs5rOo5YWlLTIubWQ=" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/N1BOOK/[第一章%20web入门]sql注入-2.md">sql注入-2<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vTjFCT09LL1vnrKzkuIDnq6AlMjB3ZWLlhaXpl6hdYWZyLTEubWQ=" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/N1BOOK/[第一章%20web入门]afr-1.md">afr-1<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vTjFCT09LL1vnrKzkuIDnq6AlMjB3ZWLlhaXpl6hdYWZyLTIubWQ=" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/N1BOOK/[第一章%20web入门]afr-2.md">afr-2<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vTjFCT09LL1vnrKzkuIDnq6AlMjB3ZWLlhaXpl6hdYWZyLTMubWQ=" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/N1BOOK/[第一章%20web入门]afr-3.md">afr-3<i class="fa fa-external-link"></i></span></li>
+</ul>
+</li>
+<li>WEB进阶<ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vTjFCT09LL1vnrKzkuoznq6AlMjB3ZWLov5vpmLZdWFNT6Zev5YWzLm1k" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/N1BOOK/[第二章%20web进阶]XSS闯关.md">XSS闯关<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vTjFCT09LL1vnrKzkuoznq6AlMjB3ZWLov5vpmLZd5paH5Lu25LiK5LygLm1k" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/N1BOOK/[第二章%20web进阶]文件上传.md">文件上传<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vTjFCT09LL1vnrKzkuoznq6AlMjB3ZWLov5vpmLZdU1NSRiUyMFRyYWluaW5nLm1k" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/N1BOOK/[第二章%20web进阶]SSRF%20Training.md">SSRF training<i class="fa fa-external-link"></i></span></li>
+</ul>
+</li>
+</ol>
+<h3 id="2-WEB"><a href="#2-WEB" class="headerlink" title="2. WEB"></a>2. WEB</h3><ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vV0VCL1tCSkRDVEYyMDIwXUVhc3klMjBNRDUubWQ=" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/WEB/[BJDCTF2020]Easy%20MD5.md">BJDCTF2020 Easy MD5<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vV0VCL1vmnoHlrqLlpKfmjJHmiJglMjAyMDE5XVNlY3JldCUyMEZpbGUubWQ=" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/WEB/[极客大挑战%202019]Secret%20File.md">极客大挑战 2019 Secret File<i class="fa fa-external-link"></i></span></li>
+</ul>
+<h3 id="3-REAL"><a href="#3-REAL" class="headerlink" title="3. REAL"></a>3. REAL</h3>]]></content>
+      <categories>
+        <category>N1BOOK CTF</category>
+      </categories>
+      <tags>
+        <tag>WEB</tag>
+        <tag>CTF</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>腾讯游戏安全竞赛2020PC方向初赛</title>
+    <url>/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/</url>
+    <content><![CDATA[<h1 id="0x00-背景"><a href="#0x00-背景" class="headerlink" title="0x00 背景"></a>0x00 背景</h1><p>2018年因为找工作的原因，和同学一起参加过游戏安全竞赛，比赛比较有趣，就一直想再参加一次。2019年为什么不参加？当时已经准备读研了，感觉没有参加的必要，所以今年想着再参加一次。<br><br><strong>赛制：</strong>分为初赛和决赛<br><br><strong>方向：</strong>PC、Android、ML、NLP<br><br><a href="PC客户端方向初赛赛题.zip">PC赛题下载</a></p>
+<a id="more"></a>
+
+<h1 id="0x01-PC赛题"><a href="#0x01-PC赛题" class="headerlink" title="0x01 PC赛题"></a>0x01 PC赛题</h1><p>PC初赛赛题包含两个题，ring0和ring3，分别分析内核态和用户态的程序。ring3题是一道签到题，ring0题需要双机调试（时间不够，没做出来，太菜了）</p>
+<ol>
+<li>ring3 扫雷exe程序和一段内存dump</li>
+<li>ring0 一款有问题的驱动程序</li>
+</ol>
+<h1 id="0x02-ring3"><a href="#0x02-ring3" class="headerlink" title="0x02 ring3"></a>0x02 ring3</h1><h3 id="1-题目要求"><a href="#1-题目要求" class="headerlink" title="1. 题目要求"></a>1. 题目要求</h3><figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">winmine.exe是一个扫雷游戏程序，winmine.dmp是该程序的一份进程dump, 在这份dump中，winmine.exe的内存映像有指令被篡改，篡改实现了外挂功能。</span><br><span class="line"><span class="number">1</span>, 请找出dump中，winmine.exe的内存映像中<span class="number">2</span>处被篡改实现外挂功能的指令（被篡改指令的偏移、篡改前后的指令分别是什么），并分析这些指令篡改所实现的外挂功能是什么。（<span class="number">4</span>分）</span><br><span class="line"><span class="number">2</span>, 请提供文档，详细描述解题过程，如涉及编写程序，必须提供源代码。（<span class="number">1</span>分）</span><br></pre></td></tr></table></figure>
+<h3 id="2-初步分析"><a href="#2-初步分析" class="headerlink" title="2. 初步分析"></a>2. 初步分析</h3><ul>
+<li>通过OD打开winmine.exe，定位代码块，冲上往下看到的第一条指令开始地址为0100140C<br><br>  <img src="/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/1.png" alt="pic"></li>
+<li>然后用010editor打开winmine.dmp文件，匹配代码开始处二进制“55 8B EC 83 EC 2C 8B 45 08 0F B7 C8 C1 E8 10 89”，找到一处匹配项，将接下来的4000h大小的二进制串（代码块在内存中为4000h）保存下来，用sbulime打开，保存为dump</li>
+<li>将本机的winmine.exe的内存dump下来，保存为mywinmine.dmp，通过同样的操作，用sublime保存4000H二进制串，保存为mydump</li>
+<li>用sublime的diff插件比较两块代码的区别，找到代码段四处不同处<br><br>  <img src="/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/2.png" alt="pic"></li>
+<li>经过分析，第一处不同是因为我之前设置了断点，所以E8变为CC，排除；第四处不同是由于加入4000H偏移，数据已经进入数据段，排除。现在还剩两处不同<h3 id="3-定位不同点"><a href="#3-定位不同点" class="headerlink" title="3. 定位不同点"></a>3. 定位不同点</h3><h4 id="3-1-第一处不同点："><a href="#3-1-第一处不同点：" class="headerlink" title="3.1 第一处不同点："></a>3.1 第一处不同点：</h4>01002FF5处<strong>FF 05 9C 57 00 01</strong>变为<strong>90 90 90 90 90 90</strong>，汇编指令inc dword ptr ds:[0x100579C]变为nop<br><br>  <img src="/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/3.png" alt="pic"><br></li>
+</ul>
+<p><strong>外挂功能：</strong>可以让扫雷的计时器停止，永远为1s，此处inc指令代表+1，判断调用了系统dll的时钟函数，用来记录时间，当用nop代替后，时间记录生效。<br><br>    <img src="/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/4.png" alt="pic"><br></p>
+<h4 id="3-2-第二处不同点："><a href="#3-2-第二处不同点：" class="headerlink" title="3.2 第二处不同点："></a>3.2 第二处不同点：</h4><p>01003591处<strong>6A 00</strong>变为<strong>EB 1D</strong>，汇编指令push 0变为jmp short winmine.010035B0,变化前如下图<br><br>    <img src="/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/5.png" alt="pic"><br><br>变化后，如下图<br><br>    <img src="/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/6.png" alt="pic"><br><br><strong>外挂功能：</strong>正常的扫雷，当我们点击到地雷时，本局游戏会结束，然而此处代码通过一个jmp指令，没有调用结束模块，让我们能够继续进行本局游戏，示例图如下<br><br>    <img src="/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/7.png" alt="pic"><br><br>自此，签到题结束</p>
+<h1 id="0x03-ring0"><a href="#0x03-ring0" class="headerlink" title="0x03 ring0"></a>0x03 ring0</h1><h3 id="1-题目要求-1"><a href="#1-题目要求-1" class="headerlink" title="1. 题目要求"></a>1. 题目要求</h3><figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line">DriverDemo.sys是一个驱动程序，它内置了一些限制。</span><br><span class="line"><span class="number">1</span>, 不能篡改该文件，尝试使驱动成功加载。（<span class="number">3</span>分）</span><br><span class="line"><span class="number">2</span>, 该驱动程序成功加载后，突破它的限制，但不允许patch文件或内存，使它成功打印出（用dbgview可接受）调试信息<span class="string">"hello world!"</span>.（<span class="number">2</span>分）</span><br></pre></td></tr></table></figure>
+<h3 id="2-初步分析-1"><a href="#2-初步分析-1" class="headerlink" title="2. 初步分析"></a>2. 初步分析</h3><ul>
+<li>设置Windows 10虚拟机高级启动选项，禁用驱动程序强制签名</li>
+<li>最开始没用管理员权限打开，viewdbg不能捕获内核，google后新建注册项，在下图所示路径新建<strong>DWORD=0xf</strong>，后来突然想起没给viewdbg管理员权限，给了之后可以捕获内核（可能是管理员权限或者是注册表原因）<br><br>  <img src="/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/8.png" alt="pic"><br></li>
+<li>编写DriverDemo.inf文件，在win10虚拟机下安装DriverDemo.sys<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[Version]</span><br><span class="line">signature       =  "$Windows NT$"               </span><br><span class="line">;这个是必须的,也可以换成WIndows95 和nT,但是这个最好,它表示windows</span><br><span class="line">Class    =  NULL      ;属于什么类型，这里是没有</span><br><span class="line">ClassGuid   =  &#123;00000000-0000-0000-0000-000000000000&#125;  </span><br><span class="line">;该类型的类型id，这里全填0</span><br><span class="line">Provider   =  %NULL%                                      ;提供商的名称</span><br><span class="line">DriverVer       =  04/01/2020,1.0.0.1                  ;驱动的版本号</span><br><span class="line"></span><br><span class="line">[DestinationDirs]</span><br><span class="line">DriverDemo.DriverFiles      = 12     ;%windir%\system32\drivers</span><br><span class="line">;12代表%windir%\system32\drivers这个目录，意思就是将DriverDemo.DriverFiles中的内容拷贝到%windir%\system32\drivers中</span><br><span class="line"></span><br><span class="line">;;</span><br><span class="line">;; Default install sections</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">[DefaultInstall]</span><br><span class="line">CopyFiles           = DriverDemo.DriverFiles</span><br><span class="line">;CopyFiles是内建命令,表示拷贝将等号右边的节里面的文件拷贝到目的地</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[DefaultInstall.Services]</span><br><span class="line">AddService          = %DriverDemoServiceName%,,DriverDemo.Service</span><br><span class="line">;AddService是内建命令,表示找右边来新建服务.</span><br><span class="line">;%DriverDemoServiceName%这个是服务的名称，加%表示在string section中，DriverDemo.Service代表下面的节点名称</span><br><span class="line"></span><br><span class="line">;;</span><br><span class="line">;; Default uninstall sections</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">[DefaultUninstall]</span><br><span class="line">DelFiles   = DriverDemo.DriverFiles</span><br><span class="line">;DelFiles表示卸载时删除文件</span><br><span class="line"></span><br><span class="line">[DefaultUninstall.Services]</span><br><span class="line">DelService = DriverDemo,0x200    ; Flags note to stop service first</span><br><span class="line">;删除服务，在删除服务前，先停止服务</span><br><span class="line"></span><br><span class="line">;</span><br><span class="line">; Services Section</span><br><span class="line">;</span><br><span class="line"></span><br><span class="line">[DriverDemo.Service]</span><br><span class="line">DisplayName      = %DriverDemoServiceName%      ;系统服务中显示的名称</span><br><span class="line">Description      = %DriverDemoServiceDesc%      ;系统服务中描述的名称</span><br><span class="line">ServiceBinary    = %12%\DriverDemo.sys  ;%windir%\system32\drivers\filespy.sys</span><br><span class="line">ServiceType      = 1      ;SERVICE_KERNEL_DRIVER</span><br><span class="line">StartType        = 3      ;SERVICE_DEMAND_START，手动启动</span><br><span class="line">ErrorControl     = 1      ;SERVICE_ERROR_NORMAL</span><br><span class="line"></span><br><span class="line">;</span><br><span class="line">; Copy Files</span><br><span class="line">;</span><br><span class="line"></span><br><span class="line">[DriverDemo.DriverFiles]</span><br><span class="line">DriverDemo.sys</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">;;</span><br><span class="line">;; String Section</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">[Strings]</span><br><span class="line">Jason          = "Jason"</span><br><span class="line">DriverDemoServiceDesc = "DriverDemo.Inf"</span><br><span class="line">DriverDemoServiceName = "DriverDemo"</span><br><span class="line">DriverDemoRegistry    = "system\currentcontrolset\services\DriverDemo"</span><br></pre></td></tr></table></figure></li>
+<li>由于在inf文件中创建了DriverDemo名字的服务，故用管理员权限打开cmd，开启服务<br><br>  <img src="/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/9.png" alt="pic"><br><br>  安装失败，开始windbg双机调试</li>
+</ul>
+<h3 id="3-双机调试"><a href="#3-双机调试" class="headerlink" title="3. 双机调试"></a>3. 双机调试</h3><p>在搭建好双机调试环境之后，开始对DriverDemo.sys进行调试，但由于自己对于驱动调试不熟悉，只能做到双机调试虚拟机里面的用户态程序。google后，捣鼓了一段时间，作品提交时间截止，就暂且搁置了，后面要做其他实验，就把虚拟机给还原了，暂时不碰驱动调试。</p>
+]]></content>
+      <categories>
+        <category>竞赛</category>
+      </categories>
+      <tags>
+        <tag>逆向</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>APT34 Glimpse 工具初探</title>
+    <url>/blog/APT34-Glimpse/</url>
+    <content><![CDATA[<h1 id="0x00-背景"><a href="#0x00-背景" class="headerlink" title="0x00 背景"></a>0x00 背景</h1><p>这阵子接到一个任务，需要我对powershell无文件攻击进行分析。在找了一圈资料之后，最后决定对APT34（带有伊朗背景）的远程powershell工具Glimpse进行分析，虽然最后的结果并不完美，暂且记录一下。</p>
+<a id="more"></a>
+
+<h1 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h1><p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZnJlZWJ1Zi5jb20vY29sdW1uLzIwMjA5My5odG1s" title="https://www.freebuf.com/column/202093.html">APT34攻击样本分析-绿盟<i class="fa fa-external-link"></i></span></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2JsYWNrb3JiaXJkL0FQVF9SRVBPUlQvdHJlZS9tYXN0ZXIvQVBUMzQ=" title="https://github.com/blackorbird/APT_REPORT/tree/master/APT34">APT34工具Github<i class="fa fa-external-link"></i></span></p>
+<h1 id="0x01-Glimpse概述"><a href="#0x01-Glimpse概述" class="headerlink" title="0x01 Glimpse概述"></a>0x01 Glimpse概述</h1><p>该工具利用DNS协议进行通信，可以在agent端和server端传输指令信息，是一款远程控制工具。主要包括三个部分：agent、panel、server</p>
+<ol>
+<li>agent<br>agent为受控端，包含1个vbs脚本和3个ps1脚本<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">runner_.vbs 用于启动ps1脚本</span><br><span class="line">dns.psl 用于与服务端通信</span><br><span class="line">dns_main.psl 用于与服务端通信</span><br><span class="line">refineddns_main.ps1 用于与服务端通信</span><br></pre></td></tr></table></figure></li>
+<li>panel<br>panel是服务器端可视化工具，可以对通信信息进行监视<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">newPanel-dbg.exe 可视化程序</span><br><span class="line">ToggleSwitch.dll 用来处理信息交互</span><br></pre></td></tr></table></figure></li>
+<li>server<br>server是服务器端，接收并解析agent端的DNS请求，向agent端下发指令<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">srvr.js 用来处理信息交互的js脚本</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h1 id="0x02-实验环境"><a href="#0x02-实验环境" class="headerlink" title="0x02 实验环境"></a>0x02 实验环境</h1><p>首先创建了两台虚拟机，win7（<strong>192.168.48.131</strong>）和win10（<strong>192.168.48.129</strong>）。然后配置虚拟网络映射器，使两台虚拟机组网后位于同一局域网络，并且与主机不在同一局域网 <strong>（样本有风险，实验环境应该与外网和主机隔离）</strong>，关闭防火墙，保证两台虚拟机之间能ping通。<br><br>    win7 ping win10<br><br>    <img src="/blog/APT34-Glimpse/7t10.png" alt><br><br>    win10 ping win7<br><br>    <img src="/blog/APT34-Glimpse/10to7.png" alt></p>
+<h1 id="0x03-实验分析"><a href="#0x03-实验分析" class="headerlink" title="0x03 实验分析"></a>0x03 实验分析</h1><p>分为3个部分：<strong>agent、server、panel</strong></p>
+<ol>
+<li><p>agent – win7 192.168.48.131<br><br>修改runner_.vbs脚本内容,将<strong>AGENT PATH</strong>改为实际文件路径，这里我改为同文件目录的dns.ps1</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">set sh=CreateObject("Wscript.Shell")</span><br><span class="line">sh.Run "powershell -exec bypass -file &lt;AGENT PATH&gt;", 0, False</span><br></pre></td></tr></table></figure>
+<p>修改dns.ps1文件，修改server地址（这里我改为win10的ip 192.168.48.129）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">MMC = <span class="string">"&lt;MALICIOUS SERVER&gt;"</span>; <span class="comment">#填写服务器地址</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash">NNC = <span class="variable">$env</span>:PUBLIC + <span class="string">"\Libraries"</span>;</span></span><br><span class="line">if (-not (Test-Path $NNC)) &#123; md $NNC; &#125;</span><br><span class="line"><span class="meta">$</span><span class="bash">OOC = <span class="variable">$NNC</span> + <span class="string">"\quid"</span>;</span></span><br><span class="line"><span class="meta">$</span><span class="bash">PPC = <span class="variable">$NNC</span> + <span class="string">"\lock"</span>;</span></span><br><span class="line">if (!(Test-Path $PPC))&#123;sc -Path $PPC -Value $pid;&#125;</span><br><span class="line">else</span><br><span class="line"> &#123;</span><br><span class="line">     $QQC = (NEW-TIMESPAN -Start ((Get-ChildItem $PPC).CreationTime) -End (Get-Date)).Minutes</span><br><span class="line">     if ($QQC -gt 10)</span><br><span class="line">     &#123;</span><br><span class="line">         stop-process -id (gc $PPC);</span><br><span class="line">         ri -Path $PPC;</span><br><span class="line">     &#125;</span><br><span class="line">     return;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>双击运行runner_.vbs脚本，它会启动dns.ps1脚本，在C:\Users\Public目录下新建Libraries文件夹，其文件树结构如下，除了生成两个文件夹以外，还生成了一个quid文件（内容为uid，即此处的198320f4c4）<br><br><img src="/blog/APT34-Glimpse/run.png" alt><br></p>
+</li>
+<li><p>server – win10 192.168.48.129<br>安装<span class="exturl" data-url="aHR0cHM6Ly9ub2RlanMub3JnL2VuLw==" title="https://nodejs.org/en/">nodejs<i class="fa fa-external-link"></i></span><br>创建一个项目文件夹（这里我的是APT34_RCE），将服务端文件srvr.js复制到当前路径，初始化nodejs项目</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm init</span><br></pre></td></tr></table></figure>
+<p>在当前文件夹路径安装相关依赖包（npm国外源很慢，可以换cnpm用国内taobao源）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install --save body-parser cookies child_process dnsd webix express ip fs path sqlite3 http portscanner child_process async ejs express-fileupload dateformat multer file-base64 flat-file-db moment busboy</span><br><span class="line">npm install --save -g forever</span><br></pre></td></tr></table></figure>
+<p>cmd打开当前路径，开启server（下面的命令会让服务端持久运行）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">forever start srvr.js</span><br></pre></td></tr></table></figure>
+<p>它会在目录C:\ProgramData下创建文件夹Glimpse，用来保存与agent的通信信息<br><br><img src="/blog/APT34-Glimpse/port.png" alt><br><br><strong>服务端的理想情况是监听本机ip的53端口，但自己测试的时候，用netstat -ano | findstr 53命令查找53端口，其并没有在监听。网上找到的攻击成功的截图都来自原作者的telegram</strong></p>
+</li>
+<li><p>panel<br>在图形化面板panel模块，也没有得到agent与server的通信信息<br><br><img src="/blog/APT34-Glimpse/visual.png" alt></p>
+</li>
+</ol>
+<h1 id="0x04-自闭"><a href="#0x04-自闭" class="headerlink" title="0x04 自闭"></a>0x04 自闭</h1><p>花了一天的时间去找问题，目前还没有解决…开始自闭…<br><br><strong>怀疑是以下原因</strong></p>
+<ol>
+<li>两台虚拟机均没有连接外网，DNS解析maybe失败</li>
+<li>agent和server配置出错</li>
+<li>该工具本身不完整</li>
+</ol>
+]]></content>
+      <categories>
+        <category>APT</category>
+      </categories>
+      <tags>
+        <tag>APT34</tag>
+        <tag>Glimpse</tag>
+        <tag>Tool</tag>
+      </tags>
+  </entry>
+</search>

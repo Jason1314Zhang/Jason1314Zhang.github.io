@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jason1314zhang.github.io","root":"/","scheme":"Gemini","version":"7.7.2","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="0x00 背景2018年因为找工作的原因，和同学一起参加过游戏安全竞赛，比赛比较有趣，就一直想再参加一次。2019年为什么不参加？当时已经准备读研了，感觉没有参加的必要，所以今年想着再参加一次。赛制：分为初赛和决赛方向：PC、Android、ML、NLPPC赛题下载">
+<meta property="og:type" content="article">
+<meta property="og:title" content="腾讯游戏安全竞赛2020PC方向初赛">
+<meta property="og:url" content="https://jason1314zhang.github.io/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/index.html">
+<meta property="og:site_name" content="SuperJason&#39;s blog">
+<meta property="og:description" content="0x00 背景2018年因为找工作的原因，和同学一起参加过游戏安全竞赛，比赛比较有趣，就一直想再参加一次。2019年为什么不参加？当时已经准备读研了，感觉没有参加的必要，所以今年想着再参加一次。赛制：分为初赛和决赛方向：PC、Android、ML、NLPPC赛题下载">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jason1314zhang.github.io/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/1.png">
+<meta property="og:image" content="https://jason1314zhang.github.io/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/2.png">
+<meta property="og:image" content="https://jason1314zhang.github.io/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/3.png">
+<meta property="og:image" content="https://jason1314zhang.github.io/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/4.png">
+<meta property="og:image" content="https://jason1314zhang.github.io/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/5.png">
+<meta property="og:image" content="https://jason1314zhang.github.io/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/6.png">
+<meta property="og:image" content="https://jason1314zhang.github.io/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/7.png">
+<meta property="og:image" content="https://jason1314zhang.github.io/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/8.png">
+<meta property="og:image" content="https://jason1314zhang.github.io/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/9.png">
+<meta property="article:published_time" content="2020-04-05T13:36:21.000Z">
+<meta property="article:modified_time" content="2020-04-05T14:35:44.000Z">
+<meta property="article:author" content="SuperJason">
+<meta property="article:tag" content="逆向">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jason1314zhang.github.io/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/1.png">
+
+<link rel="canonical" href="https://jason1314zhang.github.io/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>腾讯游戏安全竞赛2020PC方向初赛 | SuperJason's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SuperJason's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">HAPPY No.1</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>目录</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links/" rel="section"><i class="fa fa-fw fa-users"></i>Friend Links</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jason1314zhang.github.io/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="SuperJason">
+      <meta itemprop="description" content="WHU Cybersapce Security Master">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SuperJason's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          腾讯游戏安全竞赛2020PC方向初赛
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-05 21:36:21 / 修改时间：22:35:44" itemprop="dateCreated datePublished" datetime="2020-04-05T21:36:21+08:00">2020-04-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AB%9E%E8%B5%9B/" itemprop="url" rel="index"><span itemprop="name">竞赛</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="0x00-背景"><a href="#0x00-背景" class="headerlink" title="0x00 背景"></a>0x00 背景</h1><p>2018年因为找工作的原因，和同学一起参加过游戏安全竞赛，比赛比较有趣，就一直想再参加一次。2019年为什么不参加？当时已经准备读研了，感觉没有参加的必要，所以今年想着再参加一次。<br><br><strong>赛制：</strong>分为初赛和决赛<br><br><strong>方向：</strong>PC、Android、ML、NLP<br><br><a href="PC客户端方向初赛赛题.zip">PC赛题下载</a></p>
+<a id="more"></a>
+
+<h1 id="0x01-PC赛题"><a href="#0x01-PC赛题" class="headerlink" title="0x01 PC赛题"></a>0x01 PC赛题</h1><p>PC初赛赛题包含两个题，ring0和ring3，分别分析内核态和用户态的程序。ring3题是一道签到题，ring0题需要双机调试（时间不够，没做出来，太菜了）</p>
+<ol>
+<li>ring3 扫雷exe程序和一段内存dump</li>
+<li>ring0 一款有问题的驱动程序</li>
+</ol>
+<h1 id="0x02-ring3"><a href="#0x02-ring3" class="headerlink" title="0x02 ring3"></a>0x02 ring3</h1><h3 id="1-题目要求"><a href="#1-题目要求" class="headerlink" title="1. 题目要求"></a>1. 题目要求</h3><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">winmine.exe是一个扫雷游戏程序，winmine.dmp是该程序的一份进程dump, 在这份dump中，winmine.exe的内存映像有指令被篡改，篡改实现了外挂功能。</span><br><span class="line"><span class="number">1</span>, 请找出dump中，winmine.exe的内存映像中<span class="number">2</span>处被篡改实现外挂功能的指令（被篡改指令的偏移、篡改前后的指令分别是什么），并分析这些指令篡改所实现的外挂功能是什么。（<span class="number">4</span>分）</span><br><span class="line"><span class="number">2</span>, 请提供文档，详细描述解题过程，如涉及编写程序，必须提供源代码。（<span class="number">1</span>分）</span><br></pre></td></tr></table></figure>
+<h3 id="2-初步分析"><a href="#2-初步分析" class="headerlink" title="2. 初步分析"></a>2. 初步分析</h3><ul>
+<li>通过OD打开winmine.exe，定位代码块，冲上往下看到的第一条指令开始地址为0100140C<br><br>  <img src="/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/1.png" alt="pic"></li>
+<li>然后用010editor打开winmine.dmp文件，匹配代码开始处二进制“55 8B EC 83 EC 2C 8B 45 08 0F B7 C8 C1 E8 10 89”，找到一处匹配项，将接下来的4000h大小的二进制串（代码块在内存中为4000h）保存下来，用sbulime打开，保存为dump</li>
+<li>将本机的winmine.exe的内存dump下来，保存为mywinmine.dmp，通过同样的操作，用sublime保存4000H二进制串，保存为mydump</li>
+<li>用sublime的diff插件比较两块代码的区别，找到代码段四处不同处<br><br>  <img src="/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/2.png" alt="pic"></li>
+<li>经过分析，第一处不同是因为我之前设置了断点，所以E8变为CC，排除；第四处不同是由于加入4000H偏移，数据已经进入数据段，排除。现在还剩两处不同<h3 id="3-定位不同点"><a href="#3-定位不同点" class="headerlink" title="3. 定位不同点"></a>3. 定位不同点</h3><h4 id="3-1-第一处不同点："><a href="#3-1-第一处不同点：" class="headerlink" title="3.1 第一处不同点："></a>3.1 第一处不同点：</h4>01002FF5处<strong>FF 05 9C 57 00 01</strong>变为<strong>90 90 90 90 90 90</strong>，汇编指令inc dword ptr ds:[0x100579C]变为nop<br><br>  <img src="/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/3.png" alt="pic"><br></li>
+</ul>
+<p><strong>外挂功能：</strong>可以让扫雷的计时器停止，永远为1s，此处inc指令代表+1，判断调用了系统dll的时钟函数，用来记录时间，当用nop代替后，时间记录生效。<br><br>    <img src="/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/4.png" alt="pic"><br></p>
+<h4 id="3-2-第二处不同点："><a href="#3-2-第二处不同点：" class="headerlink" title="3.2 第二处不同点："></a>3.2 第二处不同点：</h4><p>01003591处<strong>6A 00</strong>变为<strong>EB 1D</strong>，汇编指令push 0变为jmp short winmine.010035B0,变化前如下图<br><br>    <img src="/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/5.png" alt="pic"><br><br>变化后，如下图<br><br>    <img src="/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/6.png" alt="pic"><br><br><strong>外挂功能：</strong>正常的扫雷，当我们点击到地雷时，本局游戏会结束，然而此处代码通过一个jmp指令，没有调用结束模块，让我们能够继续进行本局游戏，示例图如下<br><br>    <img src="/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/7.png" alt="pic"><br><br>自此，签到题结束</p>
+<h1 id="0x03-ring0"><a href="#0x03-ring0" class="headerlink" title="0x03 ring0"></a>0x03 ring0</h1><h3 id="1-题目要求-1"><a href="#1-题目要求-1" class="headerlink" title="1. 题目要求"></a>1. 题目要求</h3><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DriverDemo.sys是一个驱动程序，它内置了一些限制。</span><br><span class="line"><span class="number">1</span>, 不能篡改该文件，尝试使驱动成功加载。（<span class="number">3</span>分）</span><br><span class="line"><span class="number">2</span>, 该驱动程序成功加载后，突破它的限制，但不允许patch文件或内存，使它成功打印出（用dbgview可接受）调试信息<span class="string">"hello world!"</span>.（<span class="number">2</span>分）</span><br></pre></td></tr></table></figure>
+<h3 id="2-初步分析-1"><a href="#2-初步分析-1" class="headerlink" title="2. 初步分析"></a>2. 初步分析</h3><ul>
+<li>设置Windows 10虚拟机高级启动选项，禁用驱动程序强制签名</li>
+<li>最开始没用管理员权限打开，viewdbg不能捕获内核，google后新建注册项，在下图所示路径新建<strong>DWORD=0xf</strong>，后来突然想起没给viewdbg管理员权限，给了之后可以捕获内核（可能是管理员权限或者是注册表原因）<br><br>  <img src="/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/8.png" alt="pic"><br></li>
+<li>编写DriverDemo.inf文件，在win10虚拟机下安装DriverDemo.sys<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">[Version]</span><br><span class="line">signature       =  "$Windows NT$"               </span><br><span class="line">;这个是必须的,也可以换成WIndows95 和nT,但是这个最好,它表示windows</span><br><span class="line">Class    =  NULL      ;属于什么类型，这里是没有</span><br><span class="line">ClassGuid   =  &#123;00000000-0000-0000-0000-000000000000&#125;  </span><br><span class="line">;该类型的类型id，这里全填0</span><br><span class="line">Provider   =  %NULL%                                      ;提供商的名称</span><br><span class="line">DriverVer       =  04/01/2020,1.0.0.1                  ;驱动的版本号</span><br><span class="line"></span><br><span class="line">[DestinationDirs]</span><br><span class="line">DriverDemo.DriverFiles      = 12     ;%windir%\system32\drivers</span><br><span class="line">;12代表%windir%\system32\drivers这个目录，意思就是将DriverDemo.DriverFiles中的内容拷贝到%windir%\system32\drivers中</span><br><span class="line"></span><br><span class="line">;;</span><br><span class="line">;; Default install sections</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">[DefaultInstall]</span><br><span class="line">CopyFiles           = DriverDemo.DriverFiles</span><br><span class="line">;CopyFiles是内建命令,表示拷贝将等号右边的节里面的文件拷贝到目的地</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[DefaultInstall.Services]</span><br><span class="line">AddService          = %DriverDemoServiceName%,,DriverDemo.Service</span><br><span class="line">;AddService是内建命令,表示找右边来新建服务.</span><br><span class="line">;%DriverDemoServiceName%这个是服务的名称，加%表示在string section中，DriverDemo.Service代表下面的节点名称</span><br><span class="line"></span><br><span class="line">;;</span><br><span class="line">;; Default uninstall sections</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">[DefaultUninstall]</span><br><span class="line">DelFiles   = DriverDemo.DriverFiles</span><br><span class="line">;DelFiles表示卸载时删除文件</span><br><span class="line"></span><br><span class="line">[DefaultUninstall.Services]</span><br><span class="line">DelService = DriverDemo,0x200    ; Flags note to stop service first</span><br><span class="line">;删除服务，在删除服务前，先停止服务</span><br><span class="line"></span><br><span class="line">;</span><br><span class="line">; Services Section</span><br><span class="line">;</span><br><span class="line"></span><br><span class="line">[DriverDemo.Service]</span><br><span class="line">DisplayName      = %DriverDemoServiceName%      ;系统服务中显示的名称</span><br><span class="line">Description      = %DriverDemoServiceDesc%      ;系统服务中描述的名称</span><br><span class="line">ServiceBinary    = %12%\DriverDemo.sys  ;%windir%\system32\drivers\filespy.sys</span><br><span class="line">ServiceType      = 1      ;SERVICE_KERNEL_DRIVER</span><br><span class="line">StartType        = 3      ;SERVICE_DEMAND_START，手动启动</span><br><span class="line">ErrorControl     = 1      ;SERVICE_ERROR_NORMAL</span><br><span class="line"></span><br><span class="line">;</span><br><span class="line">; Copy Files</span><br><span class="line">;</span><br><span class="line"></span><br><span class="line">[DriverDemo.DriverFiles]</span><br><span class="line">DriverDemo.sys</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">;;</span><br><span class="line">;; String Section</span><br><span class="line">;;</span><br><span class="line"></span><br><span class="line">[Strings]</span><br><span class="line">Jason          = "Jason"</span><br><span class="line">DriverDemoServiceDesc = "DriverDemo.Inf"</span><br><span class="line">DriverDemoServiceName = "DriverDemo"</span><br><span class="line">DriverDemoRegistry    = "system\currentcontrolset\services\DriverDemo"</span><br></pre></td></tr></table></figure></li>
+<li>由于在inf文件中创建了DriverDemo名字的服务，故用管理员权限打开cmd，开启服务<br><br>  <img src="/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/9.png" alt="pic"><br><br>  安装失败，开始windbg双机调试</li>
+</ul>
+<h3 id="3-双机调试"><a href="#3-双机调试" class="headerlink" title="3. 双机调试"></a>3. 双机调试</h3><p>在搭建好双机调试环境之后，开始对DriverDemo.sys进行调试，但由于自己对于驱动调试不熟悉，只能做到双机调试虚拟机里面的用户态程序。google后，捣鼓了一段时间，作品提交时间截止，就暂且搁置了，后面要做其他实验，就把虚拟机给还原了，暂时不碰驱动调试。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%80%86%E5%90%91/" rel="tag"># 逆向</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/APT34-Glimpse/" rel="prev" title="APT34 Glimpse 工具初探">
+      <i class="fa fa-chevron-left"></i> APT34 Glimpse 工具初探
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/N1BOOK-Writeup/" rel="next" title="N1BOOK Writeup">
+      N1BOOK Writeup <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x00-背景"><span class="nav-number">1.</span> <span class="nav-text">0x00 背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-PC赛题"><span class="nav-number">2.</span> <span class="nav-text">0x01 PC赛题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-ring3"><span class="nav-number">3.</span> <span class="nav-text">0x02 ring3</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-题目要求"><span class="nav-number">3.0.1.</span> <span class="nav-text">1. 题目要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-初步分析"><span class="nav-number">3.0.2.</span> <span class="nav-text">2. 初步分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-定位不同点"><span class="nav-number">3.0.3.</span> <span class="nav-text">3. 定位不同点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-第一处不同点："><span class="nav-number">3.0.3.1.</span> <span class="nav-text">3.1 第一处不同点：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-第二处不同点："><span class="nav-number">3.0.3.2.</span> <span class="nav-text">3.2 第二处不同点：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-ring0"><span class="nav-number">4.</span> <span class="nav-text">0x03 ring0</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-题目要求-1"><span class="nav-number">4.0.1.</span> <span class="nav-text">1. 题目要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-初步分析-1"><span class="nav-number">4.0.2.</span> <span class="nav-text">2. 初步分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-双机调试"><span class="nav-number">4.0.3.</span> <span class="nav-text">3. 双机调试</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="SuperJason"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">SuperJason</p>
+  <div class="site-description" itemprop="description">WHU Cybersapce Security Master</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2phc29uMTMxNHpoYW5n" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jason1314zhang"><i class="fa fa-fw fa-github"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOmphc29uMTMxNEAxNjMuY29t" title="E-Mail → mailto:jason1314@163.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+      </span>
+  </div>
+
+
+
+      </div>
+
+      <div id="music163player">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=518895995&auto=0&height=66"></iframe>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SuperJason</span>
+</div>
+  <div class="powered-by">由 <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Gemini</span> v7.7.2
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  <script async src="/js/cursor/love.min.js"></script>
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/moment-precise-range-plugin@1.3.0/moment-precise-range.min.js"></script>
+  <script>
+    function timer() {
+      var ages = moment.preciseDiff(moment(),moment(20200302,"YYYYMMDD"));
+      ages = ages.replace(/years?/, "年");
+      ages = ages.replace(/months?/, "月");
+      ages = ages.replace(/days?/, "天");
+      ages = ages.replace(/hours?/, "小时");
+      ages = ages.replace(/minutes?/, "分");
+      ages = ages.replace(/seconds?/, "秒");
+      ages = ages.replace(/\d+/g, '<span style="color:#1890ff">$&</span>');
+      div.innerHTML = `footer.site_runtime ${ages}`;
+    }
+    var div = document.createElement("div");
+    //插入到copyright之后
+    var copyright = document.querySelector(".copyright");
+    document.querySelector(".footer-inner").insertBefore(div, copyright.nextSibling);
+    timer();
+    setInterval("timer()",1000)
+  </script>
+
+</body>
+</html>

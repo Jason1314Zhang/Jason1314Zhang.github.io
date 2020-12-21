@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+Allow: /archives/
+Allow: /tags/
+Allow: /categories/
+Allow: /about/
+Allow: /links/
+Allow: /blog/
+
+
+Disallow: /js/
+Disallow: /css/
+Disallow: /fonts/
+Disallow: /vendor/
+Disallow: /styles/
+
+Sitemap: https://jason1314zhang.github.io/sitemap.xml
+Sitemap: https://jason1314zhang.github.io/baidusitemap.xml
+
