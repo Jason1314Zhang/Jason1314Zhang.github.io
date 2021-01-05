@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://jason1314zhang.github.io/blog/N1BOOK-thinkphp%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/</loc>
-    <lastmod>2020-12-29</lastmod>
+    <loc>https://jason1314zhang.github.io/blog/CTFd-%E4%BB%BB%E6%84%8F%E8%B4%A6%E6%88%B7%E6%8E%A5%E7%AE%A1/</loc>
+    <lastmod>2021-01-05</lastmod>
   </url>  <url>
     <loc>https://jason1314zhang.github.io/blog/BUUCTF-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/</loc>
-    <lastmod>2020-12-27</lastmod>
+    <lastmod>2021-01-05</lastmod>
+  </url>  <url>
+    <loc>https://jason1314zhang.github.io/blog/N1BOOK-thinkphp%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/</loc>
+    <lastmod>2021-01-05</lastmod>
   </url>  <url>
     <loc>https://jason1314zhang.github.io/blog/N1BOOK-Writeup/</loc>
     <lastmod>2020-12-21</lastmod>
