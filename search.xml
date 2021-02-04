@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>nginx + ModSecurity 搭建WAF 基于Ubuntu20.04</title>
+    <url>/blog/nginx-ModSecurity-%E6%90%AD%E5%BB%BAWAF-Ubuntu-20-04/</url>
+    <content><![CDATA[<h1 id="0x00-背景"><a href="#0x00-背景" class="headerlink" title="0x00 背景"></a>0x00 背景</h1><p>这段时间参加了字节跳动安全风控部门的训练营，6人一组对含有漏洞的WEB应用进行渗透测试。渗透测试后搭建WAF对vul WEB应用进行防护。<br><br>网上关于CentOS搭建ModSecurity WAF的文章比较多，这里我记录一下 Ubuntu 20.04 + Apache + nginx + ModSecurity实现简单的WAF功能<br><br><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1NwaWRlckxhYnMvTW9kU2VjdXJpdHk=" title="https://github.com/SpiderLabs/ModSecurity">ModSecurity<i class="fa fa-external-link"></i></span><br></p>
+<a id="more"></a>
+
+<h1 id="0x01-环境准备"><a href="#0x01-环境准备" class="headerlink" title="0x01 环境准备"></a>0x01 环境准备</h1><p>安装相关依赖<br><code>sudo apt install gcc g++ make build-essential autoconf automake libtool gettext pkg-config libpcre3 libpcre3-dev libxml2 libxml2-dev libcurl4 libgeoip-dev libyajl-dev doxygen</code><br></p>
+<h1 id="0x02-安装ModSecurity模块"><a href="#0x02-安装ModSecurity模块" class="headerlink" title="0x02 安装ModSecurity模块"></a>0x02 安装ModSecurity模块</h1><p>这里安装的是ModSecurity v3版本，不依赖于Apache服务器<br></p>
+<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cd</span> <span class="string">/usr/local/src</span></span><br><span class="line">sudo git clone <span class="params">--depth</span> 1 -b v3/master <span class="params">--single-branch</span> https:<span class="string">//github.com/SpiderLabs/ModSecurity</span></span><br><span class="line"><span class="keyword">cd</span> ModSecurity/</span><br><span class="line">sudo git submodule init　　　　  <span class="comment"># 初始化子模块</span></span><br><span class="line">sudo git submodule update　　　　<span class="comment"># 更新子模块</span></span><br><span class="line">sudo <span class="string">./build.sh</span></span><br><span class="line">sudo <span class="string">./configure</span></span><br><span class="line">sudo make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+<p>git clone过慢可以选择<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tLmNucG1qcy5vcmcv" title="https://github.com.cnpmjs.org/">Github镜像站<i class="fa fa-external-link"></i></span>，子模块update时无法直接修改Github镜像源，可以查看<code>.gitmodules</code>文件，手动git clone子模块到指定文件夹。</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">[submodule <span class="string">"test/test-cases/secrules-language-tests"</span>]</span><br><span class="line">        path = test/test-cases/secrules-<span class="keyword">language</span>-tests</span><br><span class="line">        url = http<span class="variable">s:</span>//github.<span class="keyword">com</span>/SpiderLabs/secrules-<span class="keyword">language</span>-tests</span><br><span class="line">[submodule <span class="string">"others/libinjection"</span>]</span><br><span class="line">        path = others/libinjection</span><br><span class="line">        url = http<span class="variable">s:</span>//github.<span class="keyword">com</span>/libinjection/libinjection.git</span><br><span class="line">[submodule <span class="string">"bindings/python"</span>]</span><br><span class="line">        path = bindings/<span class="keyword">python</span></span><br><span class="line">        url = http<span class="variable">s:</span>//github.<span class="keyword">com</span>/SpiderLabs/ModSecurity-Python-bindings.git</span><br></pre></td></tr></table></figure>
+
+<h1 id="0x03-安装nginx服务器"><a href="#0x03-安装nginx服务器" class="headerlink" title="0x03 安装nginx服务器"></a>0x03 安装nginx服务器</h1><p>安装依赖<br><code>sudo apt install zlib1g zlib1g-dev openssl openssl-dev</code><br><br>安装nginx</p>
+<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cd</span> <span class="string">/usr/local/src/</span></span><br><span class="line">sudo wget http:<span class="string">//nginx.org/download/nginx-1.16.1.tar.gz</span></span><br><span class="line">sudo tar zxvf nginx-1.16.1.tar.gz</span><br><span class="line"><span class="keyword">cd</span> nginx-1.16.1</span><br><span class="line">sudo <span class="string">./configure</span>  <span class="params">--with-http_stub_status_module</span> <span class="params">--with-http_ssl_module</span></span><br><span class="line">sudo make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+<p>给nginx创建软链接<br><code>ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx</code><br>查看nginx是否安装成功<br><code>nginx -v</code></p>
+<h1 id="0x04-安装ModSecurity-nginx连接器"><a href="#0x04-安装ModSecurity-nginx连接器" class="headerlink" title="0x04 安装ModSecurity-nginx连接器"></a>0x04 安装ModSecurity-nginx连接器</h1><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cd</span> <span class="string">/usr/local/src</span></span><br><span class="line">sudo git clone <span class="params">--depth</span> 1 https:<span class="string">//github.com/SpiderLabs/ModSecurity-nginx.git</span></span><br><span class="line"><span class="keyword">cd</span> ModSecurity/</span><br><span class="line">sudo <span class="string">./configure</span> <span class="params">--with-http_stub_status_module</span>  <span class="params">--with-http_ssl_module</span> <span class="params">--add-dynamic-module=</span><span class="string">../ModSecurity-nginx</span></span><br><span class="line">sudo make modules</span><br></pre></td></tr></table></figure>
+<p><code>/usr/local/nginx/modules</code>目录会生成<code>ngx_http_modsecurity_module.so</code>文件，然后在nginx配置文件首行添加<code>load_module /usr/local/nginx/modules/ngx_http_modsecurity_module.so;</code></p>
+<h1 id="0x05-配置OWASP-CRS规则"><a href="#0x05-配置OWASP-CRS规则" class="headerlink" title="0x05 配置OWASP CRS规则"></a>0x05 配置OWASP CRS规则</h1><p>在/usr/local/nginx创建modsec配置文件路径，将ModSecurity自身配置文件复制到modsec文件夹</p>
+<ul>
+<li><code>sudo cp /usr/local/src/ModSecurity/modsecurity.conf-recommended /usr/local/nginx/modsec/modsecurity.conf</code></li>
+<li><code>sudo cp /usr/local/src/ModSecurity/unicode.mapping /usr/local/nginx/modsec/</code><br>修改modsecurity.conf文件的内容<br><code>SecRuleEngine DetectionOnly为SecRuleEngine On</code><br>在modsec文件夹创建main.conf，在该文件填入<code>Include ./modsecurity.conf</code></li>
+</ul>
+<p>下载OWASP CRS规则<br></p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cd</span> modsec</span><br><span class="line">sudo git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/SpiderLabs/owasp-modsecurity-crs.git</span><br><span class="line"><span class="keyword">cd</span> owasp-modsecurity-crs</span><br><span class="line">sudo <span class="keyword">cp</span> crs-setup.<span class="keyword">conf</span>.example  crs-setup.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
+<p>修改modsec下主配置文件main.conf，加入下列内容，将owasp的规则库加入main.conf</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Include</span> .<span class="regexp">/owasp-modsecurity-crs/</span>crs-setup.conf</span><br><span class="line"><span class="keyword">Include</span> .<span class="regexp">/owasp-modsecurity-crs/</span>rules<span class="comment">/*.conf</span></span><br></pre></td></tr></table></figure>
+<h1 id="0x06-测试nginx与ModSecurity的WAF效果"><a href="#0x06-测试nginx与ModSecurity的WAF效果" class="headerlink" title="0x06 测试nginx与ModSecurity的WAF效果"></a>0x06 测试nginx与ModSecurity的WAF效果</h1><p>在ngnix.conf文件的http{}中加入以下内容</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">modsecurity <span class="keyword">on</span>;</span><br><span class="line">modsecurity_rules_file /usr/<span class="keyword">local</span>/nginx/modsec/main.conf;</span><br></pre></td></tr></table></figure>
+<p>设置nginx端口为80，Apache端口为8000<br>输入恶意url：<strong><span class="exturl" data-url="aHR0cDovL3NlcnZlcl9pcDo4MC8=" title="http://server_ip:80/">http://server_ip:80/<i class="fa fa-external-link"></i></span>?<script></script></strong><br>没有开启WAF<br><img src="/blog/nginx-ModSecurity-%E6%90%AD%E5%BB%BAWAF-Ubuntu-20-04/unwaf.png" alt><br>开启WAF状态<br><img src="/blog/nginx-ModSecurity-%E6%90%AD%E5%BB%BAWAF-Ubuntu-20-04/waf.png" alt></p>
+<h1 id="0x07-nginx作为反向代理WAF-待完善"><a href="#0x07-nginx作为反向代理WAF-待完善" class="headerlink" title="0x07 nginx作为反向代理WAF(待完善)"></a>0x07 nginx作为反向代理WAF(待完善)</h1><p>设置nginx端口为80，Apache端口为8000<br>让nginx作为反向代理WAF，恶意流量不放行，正常流量转发到Apache服务器8000端口<br></p>
+]]></content>
+      <categories>
+        <category>WAF</category>
+      </categories>
+      <tags>
+        <tag>ModSecurity WAF</tag>
+        <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CTFd 任意账户接管</title>
     <url>/blog/CTFd-%E4%BB%BB%E6%84%8F%E8%B4%A6%E6%88%B7%E6%8E%A5%E7%AE%A1/</url>
     <content><![CDATA[<h2 id="0x00-背景"><a href="#0x00-背景" class="headerlink" title="0x00 背景"></a>0x00 背景</h2><p>由于最近在搭建CTFd平台，google的时候找到了<code>CTFd v2.0.0-v2.2.2</code>的任意账户接管漏洞<code>CVE-2020-7245</code>，正好BUUCTF上有一道CTFd的题目，Start。</p>
