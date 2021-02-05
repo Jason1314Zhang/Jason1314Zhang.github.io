@@ -29,8 +29,11 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jason1314zhang.github.io/blog/nginx-ModSecurity-%E6%90%AD%E5%BB%BAWAF-Ubuntu-20-04/unwaf.png">
 <meta property="og:image" content="https://jason1314zhang.github.io/blog/nginx-ModSecurity-%E6%90%AD%E5%BB%BAWAF-Ubuntu-20-04/waf.png">
+<meta property="og:image" content="https://jason1314zhang.github.io/blog/nginx-ModSecurity-%E6%90%AD%E5%BB%BAWAF-Ubuntu-20-04/proxy_unwaf.png">
+<meta property="og:image" content="https://jason1314zhang.github.io/blog/nginx-ModSecurity-%E6%90%AD%E5%BB%BAWAF-Ubuntu-20-04/waf.png">
+<meta property="og:image" content="https://jason1314zhang.github.io/blog/nginx-ModSecurity-%E6%90%AD%E5%BB%BAWAF-Ubuntu-20-04/proxy.jpg">
 <meta property="article:published_time" content="2021-02-04T13:31:59.000Z">
-<meta property="article:modified_time" content="2021-02-04T16:27:44.236Z">
+<meta property="article:modified_time" content="2021-02-05T15:13:45.680Z">
 <meta property="article:author" content="SuperJason">
 <meta property="article:tag" content="ModSecurity WAF">
 <meta property="article:tag" content="nginx">
@@ -248,7 +251,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-05 00:27:44" itemprop="dateModified" datetime="2021-02-05T00:27:44+08:00">2021-02-05</time>
+                <time title="修改时间：2021-02-05 23:13:45" itemprop="dateModified" datetime="2021-02-05T23:13:45+08:00">2021-02-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -260,6 +263,8 @@
                 </span>
             </span>
 
+
+
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
               <span class="post-meta-item-icon">
@@ -267,6 +272,20 @@
               </span>
               <span class="post-meta-item-text">阅读次数：</span>
               <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
             </span>
 
         </div>
@@ -304,7 +323,12 @@
 <h1 id="0x06-测试nginx与ModSecurity的WAF效果"><a href="#0x06-测试nginx与ModSecurity的WAF效果" class="headerlink" title="0x06 测试nginx与ModSecurity的WAF效果"></a>0x06 测试nginx与ModSecurity的WAF效果</h1><p>在ngnix.conf文件的http{}中加入以下内容</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">modsecurity <span class="keyword">on</span>;</span><br><span class="line">modsecurity_rules_file /usr/<span class="keyword">local</span>/nginx/modsec/main.conf;</span><br></pre></td></tr></table></figure>
 <p>设置nginx端口为80，Apache端口为8000<br>输入恶意url：<strong><span class="exturl" data-url="aHR0cDovL3NlcnZlcl9pcDo4MC8=" title="http://server_ip:80/">http://server_ip:80/<i class="fa fa-external-link"></i></span>?<script></script></strong><br>没有开启WAF<br><img src="/blog/nginx-ModSecurity-%E6%90%AD%E5%BB%BAWAF-Ubuntu-20-04/unwaf.png" alt><br>开启WAF状态<br><img src="/blog/nginx-ModSecurity-%E6%90%AD%E5%BB%BAWAF-Ubuntu-20-04/waf.png" alt></p>
-<h1 id="0x07-nginx作为反向代理WAF-待完善"><a href="#0x07-nginx作为反向代理WAF-待完善" class="headerlink" title="0x07 nginx作为反向代理WAF(待完善)"></a>0x07 nginx作为反向代理WAF(待完善)</h1><p>设置nginx端口为80，Apache端口为8000<br>让nginx作为反向代理WAF，恶意流量不放行，正常流量转发到Apache服务器8000端口<br></p>
+<h1 id="0x07-nginx作为反向代理WAF-待完善"><a href="#0x07-nginx作为反向代理WAF-待完善" class="headerlink" title="0x07 nginx作为反向代理WAF(待完善)"></a>0x07 nginx作为反向代理WAF(待完善)</h1><p>设置nginx端口为80，Apache端口为8000<br>让nginx作为反向代理WAF，恶意流量不放行，正常流量转发到Apache服务器8000端口<br>修改ngnix.conf文件中http模块内容，添加几台实际应用服务器负载均衡。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">upstream webservers&#123;</span><br><span class="line">       <span class="built_in"> server </span>your_server1_ip:port;</span><br><span class="line">       <span class="built_in"> server </span>your_server2_ip:port;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后修改http模块中的server模块，添加重定向模块</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">location</span> <span class="title">/ &#123;</span></span><br><span class="line"><span class="title">        proxy_pass</span> http:webservers;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果直接访问服务器80端口的ngnix，请求将被转发到8000端口的Apache服务器<br><img src="/blog/nginx-ModSecurity-%E6%90%AD%E5%BB%BAWAF-Ubuntu-20-04/proxy_unwaf.png" alt><br>攻击者的对80端口发起的恶意请求会被拦截<br><img src="/blog/nginx-ModSecurity-%E6%90%AD%E5%BB%BAWAF-Ubuntu-20-04/waf.png" alt><br>将nginx作为反向代理服务器，同时作为WAF，为后端应用服务器提供负载均衡<br><img src="/blog/nginx-ModSecurity-%E6%90%AD%E5%BB%BAWAF-Ubuntu-20-04/proxy.jpg" alt><br>这样可以只给外网开放一个端口（例如80），从而保护内网其他应用服务器的安全（减少攻击面）</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><em><span class="exturl" data-url="aHR0cHM6Ly93d3cubGludXhiYWJlLmNvbS9zZWN1cml0eS9tb2RzZWN1cml0eS1uZ2lueC1kZWJpYW4tdWJ1bnR1" title="https://www.linuxbabe.com/security/modsecurity-nginx-debian-ubuntu">https://www.linuxbabe.com/security/modsecurity-nginx-debian-ubuntu<i class="fa fa-external-link"></i></span></em></p>
 
     </div>
 
@@ -387,7 +411,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x00-背景"><span class="nav-number">1.</span> <span class="nav-text">0x00 背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-环境准备"><span class="nav-number">2.</span> <span class="nav-text">0x01 环境准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-安装ModSecurity模块"><span class="nav-number">3.</span> <span class="nav-text">0x02 安装ModSecurity模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-安装nginx服务器"><span class="nav-number">4.</span> <span class="nav-text">0x03 安装nginx服务器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x04-安装ModSecurity-nginx连接器"><span class="nav-number">5.</span> <span class="nav-text">0x04 安装ModSecurity-nginx连接器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x05-配置OWASP-CRS规则"><span class="nav-number">6.</span> <span class="nav-text">0x05 配置OWASP CRS规则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x06-测试nginx与ModSecurity的WAF效果"><span class="nav-number">7.</span> <span class="nav-text">0x06 测试nginx与ModSecurity的WAF效果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x07-nginx作为反向代理WAF-待完善"><span class="nav-number">8.</span> <span class="nav-text">0x07 nginx作为反向代理WAF(待完善)</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x00-背景"><span class="nav-number">1.</span> <span class="nav-text">0x00 背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-环境准备"><span class="nav-number">2.</span> <span class="nav-text">0x01 环境准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-安装ModSecurity模块"><span class="nav-number">3.</span> <span class="nav-text">0x02 安装ModSecurity模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-安装nginx服务器"><span class="nav-number">4.</span> <span class="nav-text">0x03 安装nginx服务器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x04-安装ModSecurity-nginx连接器"><span class="nav-number">5.</span> <span class="nav-text">0x04 安装ModSecurity-nginx连接器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x05-配置OWASP-CRS规则"><span class="nav-number">6.</span> <span class="nav-text">0x05 配置OWASP CRS规则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x06-测试nginx与ModSecurity的WAF效果"><span class="nav-number">7.</span> <span class="nav-text">0x06 测试nginx与ModSecurity的WAF效果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x07-nginx作为反向代理WAF-待完善"><span class="nav-number">8.</span> <span class="nav-text">0x07 nginx作为反向代理WAF(待完善)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">8.1.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -452,12 +476,22 @@
 
 <div class="copyright">
   
-  &copy; 
+  &copy; 2020 – 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">SuperJason</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">16k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">28 分钟</span>
 </div>
   <div class="powered-by">由 <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> 强力驱动 v4.2.0
   </div>
