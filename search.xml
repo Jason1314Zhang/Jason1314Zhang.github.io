@@ -169,9 +169,12 @@
   <entry>
     <title>N1BOOK Writeup</title>
     <url>/blog/N1BOOK-Writeup/</url>
-    <content><![CDATA[<h1 id="0x00-背景"><a href="#0x00-背景" class="headerlink" title="0x00 背景"></a>0x00 背景</h1><p>一直想为开源社区贡献一点东西，趁着这段时间有机会，决定把<span class="exturl" data-url="aHR0cHM6Ly9idXVvai5jbi9jaGFsbGVuZ2Vz" title="https://buuoj.cn/challenges">BUUCTF<i class="fa fa-external-link"></i></span>的题刷一下。主要是重新回顾一下WEB、N1BOOK和REAL部分的题，积累相关测试经验，如果能够帮助到其他人，也算是没白写Writeup。<br><br>项目地址<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUA==" title="https://github.com/Jason1314Zhang/BUUCTF-WP">BUUCTF-WP<i class="fa fa-external-link"></i></span>，如果觉得做得可以的话可以Fork，欢迎提PR。</p>
+    <content><![CDATA[<h1 id="0x00-背景"><a href="#0x00-背景" class="headerlink" title="0x00 背景"></a>0x00 背景</h1><p>一直想为开源社区贡献一点东西，趁着这段时间有机会，决定把<span class="exturl" data-url="aHR0cHM6Ly9idXVvai5jbi9jaGFsbGVuZ2Vz" title="https://buuoj.cn/challenges">BUUCTF<i class="fa fa-external-link"></i></span>的题刷一下。主要是重新回顾一下WEB、N1BOOK和REAL部分的题，积累相关测试经验，如果能够帮助到其他人，也算是没白写Writeup。<br><strong>N1BOOK</strong>全系列WEB WP共计<strong>18</strong>篇。<br><strong>BUUCTF WEB</strong>系列和实验室CFO写了共计<strong>35</strong>篇。<br>项目地址<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUA==" title="https://github.com/Jason1314Zhang/BUUCTF-WP">BUUCTF-WP<i class="fa fa-external-link"></i></span>，如果觉得做得可以的话可以Fork，欢迎提PR。</p>
 <a id="more"></a>
-<h2 id="做题情况"><a href="#做题情况" class="headerlink" title="做题情况"></a>做题情况</h2><h3 id="1-N1BOOK"><a href="#1-N1BOOK" class="headerlink" title="1. N1BOOK"></a>1. N1BOOK</h3><ol>
+<h2 id="做题情况"><a href="#做题情况" class="headerlink" title="做题情况"></a>做题情况</h2><ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vTjFCT09LL1vnrKzkuIDnq6AlMjB3ZWLlhaXpl6hd57KX5b+D55qE5bCP5p2OLm1k" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/N1BOOK/[第一章%20web入门]粗心的小李.md">粗心的小李<i class="fa fa-external-link"></i></span><h3 id="1-N1BOOK"><a href="#1-N1BOOK" class="headerlink" title="1. N1BOOK"></a>1. N1BOOK</h3></li>
+</ul>
+<ol>
 <li>WEB入门<ul>
 <li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vTjFCT09LL1vnrKzkuIDnq6AlMjB3ZWLlhaXpl6hd57KX5b+D55qE5bCP5p2OLm1k" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/N1BOOK/[第一章%20web入门]粗心的小李.md">粗心的小李<i class="fa fa-external-link"></i></span></li>
 <li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vTjFCT09LL1vnrKzkuIDnq6AlMjB3ZWLlhaXpl6hd5bi46KeB55qE5pCc6ZuGLm1k" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/N1BOOK/[第一章%20web入门]常见的搜集.md">常见的搜集<i class="fa fa-external-link"></i></span></li>
@@ -186,20 +189,79 @@
 <li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vTjFCT09LL1vnrKzkuoznq6AlMjB3ZWLov5vpmLZdWFNT6Zev5YWzLm1k" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/N1BOOK/[第二章%20web进阶]XSS闯关.md">XSS闯关<i class="fa fa-external-link"></i></span></li>
 <li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vTjFCT09LL1vnrKzkuoznq6AlMjB3ZWLov5vpmLZd5paH5Lu25LiK5LygLm1k" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/N1BOOK/[第二章%20web进阶]文件上传.md">文件上传<i class="fa fa-external-link"></i></span></li>
 <li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vTjFCT09LL1vnrKzkuoznq6AlMjB3ZWLov5vpmLZdU1NSRiUyMFRyYWluaW5nLm1k" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/N1BOOK/[第二章%20web进阶]SSRF%20Training.md">SSRF training<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vTjFCT09LL1vnrKzkuoznq6AlMjB3ZWLov5vpmLZd5q275LqhcGluZ+WRveS7pC5tZA==" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/N1BOOK/[第二章%20web进阶]死亡ping命令.md">死亡ping命令<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vTjFCT09LL1vnrKzkuInnq6AlMjB3ZWLov5vpmLZd6YC76L6R5ryP5rSeLm1k" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/N1BOOK/[第三章%20web进阶]逻辑漏洞.md">逻辑漏洞<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vTjFCT09LL1vnrKzkuInnq6AlMjB3ZWLov5vpmLZdUHl0aG9u6YeM55qEU1NSRi5tZA==" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/N1BOOK/[第三章%20web进阶]Python里的SSRF.md">Python里的SSRF<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vTjFCT09LL1vnrKzkuInnq6AlMjB3ZWLov5vpmLZdU1NUSS5tZA==" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/N1BOOK/[第三章%20web进阶]SSTI.md">SSTI<i class="fa fa-external-link"></i></span></li>
+<li><a href="N1BOOK/[第三章%20web进阶]thinkphp反序列化利用链.md">thinkphp反序列化利用链</a><h3 id="2-WEB"><a href="#2-WEB" class="headerlink" title="2. WEB"></a>2. WEB</h3></li>
 </ul>
 </li>
 </ol>
-<h3 id="2-WEB"><a href="#2-WEB" class="headerlink" title="2. WEB"></a>2. WEB</h3><ul>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vV0VCL1tCSkRDVEYyMDIwXUVhc3klMjBNRDUubWQ=" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/WEB/[BJDCTF2020]Easy%20MD5.md">BJDCTF2020 Easy MD5<i class="fa fa-external-link"></i></span></li>
-<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vV0VCL1vmnoHlrqLlpKfmjJHmiJglMjAyMDE5XVNlY3JldCUyMEZpbGUubWQ=" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/WEB/[极客大挑战%202019]Secret%20File.md">极客大挑战 2019 Secret File<i class="fa fa-external-link"></i></span></li>
+<ul>
+<li>文件上传类Index： <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vV0VCL1VwbG9hZHMubWQ=" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/WEB/Uploads.md">Uploads<i class="fa fa-external-link"></i></span></li>
+<li>SSRF类Index： <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vV0VCL1NTUkYubWQ=" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/WEB/SSRF.md">SSRF<i class="fa fa-external-link"></i></span></li>
+<li>SQL注入类Index： <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vV0VCL1NRTF9JbmplY3QubWQ=" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/WEB/SQL_Inject.md">SQLInjection<i class="fa fa-external-link"></i></span></li>
+<li>RCE类Index:  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phc29uMTMxNFpoYW5nL0JVVUNURi1XUC9ibG9iL21haW4vV0VCL1JDRS5tZA==" title="https://github.com/Jason1314Zhang/BUUCTF-WP/blob/main/WEB/RCE.md">RCE<i class="fa fa-external-link"></i></span></li>
 </ul>
-<h3 id="3-REAL"><a href="#3-REAL" class="headerlink" title="3. REAL"></a>3. REAL</h3>]]></content>
+<!--
+- [BJDCTF2020 Easy MD5](WEB/[BJDCTF2020]Easy%20MD5.md)
+- [极客大挑战 2019 Knife](WEB/[极客大挑战%202019]Knife.md)
+- [极客大挑战 2019 Secret File](WEB/[极客大挑战%202019]Secret%20File.md)
+- [极客大挑战 2019 Upload](WEB/[极客大挑战%202019]Upload.md)
+- [极客大挑战 2019 LoveSQL](WEB/[极客大挑战%202019]LoveSQL.md)
+- [SUCTF 2019 CheckIn](WEB/[SUCTF%202019]CheckIn.md)
+- [强网杯 2019 随便注](WEB/[强网杯%202019]随便注.md)
+- [MRCTF2020 你传你马呢](WEB/[MRCTF2020]你传你马呢.md)
+- [RoarCTF 2019Simple Upload](WEB/[RoarCTF%202019]Simple%20Upload.md)
+- [HCTF 2018 WarmUp](WEB/[HCTF%202018]WarmUp.md)
+- [SUCTF 2019 EasySQL](WEB/[SUCTF%202019]EasySQL.md)
+- [HFCTF2020 BabyUpload](WEB/[HFCTF2020]BabyUpload.md)
+- [GYCTF2020Ezsqli](WEB/[GYCTF2020]Ezsqli.md)
+- [极客大挑战 2019FinalSQL](WEB/[极客大挑战%202019]FinalSQL.md)
+- [极客大挑战 BabySQL](WEB/[极客大挑战%202019]BabySQL.md)
+- [极客大挑战 HardSQL](WEB/[极客大挑战%202019]HardSQL.md)
+- [GWCTF 2019 枯燥的抽奖](WEB/[GWCTF%202019]枯燥的抽奖.md)
+- [安洵杯 2019 不是文件上传](WEB/[安洵杯%202019]不是文件上传.md)
+- [SUCTF 2018 MultiSQL](WEB/[SUCTF%202018]MultiSQL.md)
+- [October 2019 Twice SQL Injection](WEB/October%202019%20Twice%20SQL%20Injection.md)
+- [NPUCTF 2020 验证码](WEB/[NPUCTF2020]验证码.md)
+- [HCTF 2018 admin](WEB/[HCTF%202018]admin.md)
+- [De1CTF 2019SSRF Me](WEB/[De1CTF%202019]SSRF%20Me.md)
+- [ZJCTF 2019 NiZhuanSiWei](WEB/[ZJCTF%202019]NiZhuanSiWei.md)
+- [网鼎杯 玄武组 SSRFMe](WEB/[网鼎杯%202020%20玄武组]SSRFMe.md)
+- [GKCTF2020EZ三剑客-EzWeb](WEB/[GKCTF2020]EZ三剑客-EzWeb.md)
+- [N1CTF 2018 easy_harder_php](WEB/[N1CTF%202018]easy_harder_php.md)
+- [极客大挑战 2019 PHP](WEB/[[极客大挑战%202019]PHP.md])
+-->]]></content>
       <categories>
         <category>N1BOOK CTF</category>
       </categories>
       <tags>
         <tag>WEB</tag>
         <tag>CTF</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>APT34 Glimpse 工具分析</title>
+    <url>/blog/APT34-Glimpse-%E5%B7%A5%E5%85%B7%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<h1 id="0x00-背景"><a href="#0x00-背景" class="headerlink" title="0x00 背景"></a>0x00 背景</h1><p>前文：<a href="https://jason1314zhang.github.io/blog/APT34-Glimpse/">APT34 Glimpse 工具初探</a></p>
+<p>这阵子接到一个任务，需要我对powershell无文件攻击进行分析。在找了一圈资料之后，最后决定对APT34（带有伊朗背景）的远程powershell工具Glimpse进行分析。之前已经做过一部分分析，但是失败了，这次将后续内容补充起来。</p>
+<a id="more"></a>
+
+<h1 id="0x01-Glimpse模块"><a href="#0x01-Glimpse模块" class="headerlink" title="0x01 Glimpse模块"></a>0x01 Glimpse模块</h1><p>Glimpse利用DNS协议来进行信息交互，整个Glimpse分为agent、server、panel三个部分。agent是受控端，包含1个vbs脚本和3个ps1脚本；panel是服务器端可视化工具，用于展示受控端的基本信息（ip、上线时间等）；server是服务器端，接收并解析agent端的DNS请求，向agent端下发指令。APT34 Glimpse的<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2JsYWNrb3JiaXJkL0FQVF9SRVBPUlQvdHJlZS9tYXN0ZXIvQVBUMzQ=" title="https://github.com/blackorbird/APT_REPORT/tree/master/APT34">下载地址<i class="fa fa-external-link"></i></span></p>
+<h2 id="1-agent"><a href="#1-agent" class="headerlink" title="1. agent"></a>1. agent</h2><p>受控端包括1个vbs脚本和3个ps1脚本，其中vbs脚本用于执行ps1脚本，3个ps1脚本的功能相同，其中2个ps1脚本对变量名和函数做了混淆处理。<br><code>runner_.vbs脚本内容</code><br><img src="/blog/APT34-Glimpse-%E5%B7%A5%E5%85%B7%E5%88%86%E6%9E%90/1.png" alt><br>runner_.vbs可以绕过PowerShell的执行策略并且隐式的执行ps1脚本，这里需要把AGENT PATH改为“dns_main.ps1”，当runner_.vbs执行时便会执行dns_main.ps1。</p>
+<p>dns_main.ps1用于与服务器进行交互，通过DNS域名解析协议实现数据的传输，在使用这个ps1脚本时，需要修改第一行的域名为指定的C2域名，这里改为“example.com”。<br><code>dns_main.ps1预处理阶段</code><br><img src="/blog/APT34-Glimpse-%E5%B7%A5%E5%85%B7%E5%88%86%E6%9E%90/2.png" alt><br><img src="/blog/APT34-Glimpse-%E5%B7%A5%E5%85%B7%E5%88%86%E6%9E%90/3.png" alt><br>该脚本首先会在$env:PUBLIC目录下创建Libraries文件夹，然后在该文件夹目录下创建files文件夹、lock文件（互斥文件，防止多个ps1脚本同时运行）、quid文件（值为受控端ID）和受控端ID文件夹（一个长为10的随机字符串作为受控端ID）。在受控端ID文件夹下创建done、sendbox、receivebox用于保存服务器端的命令和需要发送给服务器端的文件。<br>在完成预处理阶段生成相应的文件和文件目录后，受控端ps1脚本开始向服务器端发送非法的DNS请求（恶意构造的DNS请求）。首次通信受控端向服务器端发送action字段为“M”的非法DNS请求，服务器端会在指定的目录C:\ProgramData\Glimpse\dns\ID（这里具体值是受控端的id）创建文件夹wait、received、sended、sending、done存放服务器端发送和接收的信息。<br><code>dns_main.ps1首次通信</code><br><img src="/blog/APT34-Glimpse-%E5%B7%A5%E5%85%B7%E5%88%86%E6%9E%90/4.png" alt><br>受控端与服务器端通信的函数主要包括以下几类。受控端有两种通信方式，ping模式和文本模式，aa_AdrGen_bb主要用来生成非法的DNS请求，其余的函数用于解析非法DNS请求中的数据。当aa_AdrGen_bb函数的第五个参数是r时，会生成actiondata.example.com的非法DNS请求；当aa_AdrGen_bb函数的第五个参数是s时，会生成actiondata.data1.data2.example.com的非法DNS请求。其中actiondata字段是每一次通信都必须构造的部分，信息传输时会构造剩下的data1，data2字段。<br><code>dns_main.ps1主要函数模块</code><br><img src="/blog/APT34-Glimpse-%E5%B7%A5%E5%85%B7%E5%88%86%E6%9E%90/5.png" alt></p>
+<h2 id="2-panel"><a href="#2-panel" class="headerlink" title="2. panel"></a>2. panel</h2><p>可视化模块安装在服务器端，用于监控受控端的各种信息，它包含两个部分，newPannel-dbg.exe和ToggleSwitch.dll。可视化模块主要是获取服务器端特定目录C:\ProgramData\Glimpse\dns\ID下的各种信息，用于可视化展示。<br><code>panel可视化模块</code><br><img src="/blog/APT34-Glimpse-%E5%B7%A5%E5%85%B7%E5%88%86%E6%9E%90/6.png" alt></p>
+<h2 id="3-server"><a href="#3-server" class="headerlink" title="3. server"></a>3. server</h2><p>服务器端利用node.js搭建的简易DNS服务器，包含一个srvr.js文件作为服务器。服务器端会开放本机的53端口，用于获取DNS请求。<br><code>srvr.js主要函数</code><br><img src="/blog/APT34-Glimpse-%E5%B7%A5%E5%85%B7%E5%88%86%E6%9E%90/7.png" alt><br>服务器端wait文件夹用于保存需要服务器传给受控端的命令或文件，sending文件夹表示服务器正在传送给受控端的命令或文件，sended文件夹表示服务器已经发送给受控端的命令或文件。在受控端首次与服务器端通信时，服务器端会将“whoami&amp;ipconfig /all”命令放入wait文件夹，等待传输。根据受控端传来的非法的DNS请求中actiondata数据字段中action的值，服务器会做出不同的响应。<br>当action的值为“M”时，服务器会检查当前agent与server的通信模式，当通信模式为ping时，服务器返回199.250.250.99；当通信模式为文本模式时，服务器返回99.250.250.199。<br>当action的值为“W”时，服务器会检查当前的wait文件夹，如果该文件夹有需要发送的文件，服务器会使用文本模式返回”S000s&gt;”加上文件名，并且在sending文件夹目录下保存需要发送的文件。<br>当action的值为“D”时，服务器会将wait文件夹下的文件内容经过Base64编码，通过文本模式发送给受控端，传输完毕后再用文本模式返回“E0000&gt;0”。<br>当action的值为“2”时，服务器会利用DNS A记录的形式分片接收受控端发送的文件。在发送完所有数据后，受控端会发送一个data1部分为COCTabCOCT 的非法DNS请求，表示受控端已完成文件信息的发送。<br>当action的值为“1”时，服务器会利用DNS A记录向受控端发送文件。<br>当action的值为“0”时，服务器会向受控端发送经过正则化处理的文件名。<br>在形式如actiondata.data1.data2.example.com的非法DNS请求中，data1的内容是受控端向服务器端回传的文件内容，data2的内容是文件的名称。actiondata字段包含受控端ID信息、action类型、随机字符串等。<br><code>actiondata字段分析</code><br><img src="/blog/APT34-Glimpse-%E5%B7%A5%E5%85%B7%E5%88%86%E6%9E%90/8.png" alt></p>
+<h1 id="0x02-Glimpse实验"><a href="#0x02-Glimpse实验" class="headerlink" title="0x02 Glimpse实验"></a>0x02 Glimpse实验</h1><p>首先创建了两台虚拟机，win7（192.168.48.131）和win10（192.168.48.130）。然后配置虚拟网络映射器，使两台虚拟机组网后位于同一局域网络，关闭防火墙，保证两台虚拟机之间能ping通。win7虚拟机作为受控端agent，win10虚拟机作为DNS服务器端。<br>修改runner_.vbs脚本的内容，把AGENT PATH改为“dns_main.ps1”。对dns_main.ps1进行修改，将C2域名改为“example.com”。原版dns_main.ps1文件有缺陷，需要对其进行适当修改。在server端，利用nodejs的forever运行DNS服务器；在agent端，运行dns_main.ps1。<br><code>dns_main.ps1文件运行情况</code><br><img src="/blog/APT34-Glimpse-%E5%B7%A5%E5%85%B7%E5%88%86%E6%9E%90/9.png" alt><br><code>DNS服务器运行情况</code><br><img src="/blog/APT34-Glimpse-%E5%B7%A5%E5%85%B7%E5%88%86%E6%9E%90/10.png" alt><br>初次建立连接时，DNS服务器会向agent发送“whoami&amp;ipconfig /all”命令，agent收到命令后，会在本机执行命令，并将信息保持在send文件夹内。<br><code>whoami&amp;ipconfig /all命令响应</code><br><img src="/blog/APT34-Glimpse-%E5%B7%A5%E5%85%B7%E5%88%86%E6%9E%90/11.png" alt><br>在windows 10虚拟机创建一个file_from_server.txt文件（文件内容为file_from_server），通过panel可视化界面上传到agent端，在agent端done文件夹下收到该文件内容。<br><code>server向agent上传文件</code><br><img src="/blog/APT34-Glimpse-%E5%B7%A5%E5%85%B7%E5%88%86%E6%9E%90/12.png" alt><br>在windows 7虚拟机（agent端）创建一个agent.txt文件（文件内容为this is agent），放入windows 7虚拟机的D盘根目录下。然后在windows 10虚拟机（server端）的panel界面选择下载“D:\agent.txt”，agent端会将agent.txt的内容存入sendbox文件夹。<br><code>server从agent下载文件</code><br><img src="/blog/APT34-Glimpse-%E5%B7%A5%E5%85%B7%E5%88%86%E6%9E%90/13.png" alt><br>在实验过程中，agent端和server端都会出现掉线的情况，需要一直保持双方在线，才可以进行信息交互。总的来说，这个工具还是由缺陷的，稳定性不强，且DNS恶意流量可以被检测到。</p>
+]]></content>
+      <categories>
+        <category>APT</category>
+      </categories>
+      <tags>
+        <tag>APT34</tag>
+        <tag>Glimpse</tag>
+        <tag>Tool</tag>
       </tags>
   </entry>
   <entry>
