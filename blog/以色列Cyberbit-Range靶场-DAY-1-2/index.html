@@ -20,24 +20,21 @@
     var CONFIG = {"hostname":"jason1314zhang.github.io","root":"/","scheme":"Gemini","version":"7.7.2","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="0x00 背景由于最近在搭建CTFd平台，google的时候找到了CTFd v2.0.0-v2.2.2的任意账户接管漏洞CVE-2020-7245，正好BUUCTF上有一道CTFd的题目，Start。">
+  <meta name="description" content="0x00 背景学校购进了以色列著名的Cyberbit Range靶场，该靶场面向于蓝队成员。通过模拟多个攻击场景，训练蓝队队员的反入侵、溯源、取证等能力。个人觉得比较有意思，复盘一下这两天的演练情况。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CTFd 任意账户接管">
-<meta property="og:url" content="https://jason1314zhang.github.io/blog/CTFd-%E4%BB%BB%E6%84%8F%E8%B4%A6%E6%88%B7%E6%8E%A5%E7%AE%A1/index.html">
+<meta property="og:title" content="以色列Cyberbit Range靶场 DAY 1-2">
+<meta property="og:url" content="https://jason1314zhang.github.io/blog/%E4%BB%A5%E8%89%B2%E5%88%97Cyberbit-Range%E9%9D%B6%E5%9C%BA-DAY-1-2/index.html">
 <meta property="og:site_name" content="SuperJason&#39;s blog">
-<meta property="og:description" content="0x00 背景由于最近在搭建CTFd平台，google的时候找到了CTFd v2.0.0-v2.2.2的任意账户接管漏洞CVE-2020-7245，正好BUUCTF上有一道CTFd的题目，Start。">
+<meta property="og:description" content="0x00 背景学校购进了以色列著名的Cyberbit Range靶场，该靶场面向于蓝队成员。通过模拟多个攻击场景，训练蓝队队员的反入侵、溯源、取证等能力。个人觉得比较有意思，复盘一下这两天的演练情况。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://jason1314zhang.github.io/blog/CTFd-%E4%BB%BB%E6%84%8F%E8%B4%A6%E6%88%B7%E6%8E%A5%E7%AE%A1/ctfd-4.png">
-<meta property="og:image" content="https://jason1314zhang.github.io/blog/CTFd-%E4%BB%BB%E6%84%8F%E8%B4%A6%E6%88%B7%E6%8E%A5%E7%AE%A1/ctfd-5.png">
-<meta property="article:published_time" content="2021-01-05T12:50:16.000Z">
-<meta property="article:modified_time" content="2021-01-05T13:01:39.770Z">
+<meta property="article:published_time" content="2021-03-18T10:32:09.000Z">
+<meta property="article:modified_time" content="2021-03-18T12:35:01.703Z">
 <meta property="article:author" content="SuperJason">
-<meta property="article:tag" content="CTFd">
-<meta property="article:tag" content="CVE-2020-7245">
+<meta property="article:tag" content="勒索软件">
+<meta property="article:tag" content="蓝队">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jason1314zhang.github.io/blog/CTFd-%E4%BB%BB%E6%84%8F%E8%B4%A6%E6%88%B7%E6%8E%A5%E7%AE%A1/ctfd-4.png">
 
-<link rel="canonical" href="https://jason1314zhang.github.io/blog/CTFd-%E4%BB%BB%E6%84%8F%E8%B4%A6%E6%88%B7%E6%8E%A5%E7%AE%A1/">
+<link rel="canonical" href="https://jason1314zhang.github.io/blog/%E4%BB%A5%E8%89%B2%E5%88%97Cyberbit-Range%E9%9D%B6%E5%9C%BA-DAY-1-2/">
 
 
 <script id="page-configurations">
@@ -49,7 +46,7 @@
   };
 </script>
 
-  <title>CTFd 任意账户接管 | SuperJason's blog</title>
+  <title>以色列Cyberbit Range靶场 DAY 1-2 | SuperJason's blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HZQ6CYEV9N"></script>
     <script>
@@ -218,7 +215,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jason1314zhang.github.io/blog/CTFd-%E4%BB%BB%E6%84%8F%E8%B4%A6%E6%88%B7%E6%8E%A5%E7%AE%A1/">
+    <link itemprop="mainEntityOfPage" href="https://jason1314zhang.github.io/blog/%E4%BB%A5%E8%89%B2%E5%88%97Cyberbit-Range%E9%9D%B6%E5%9C%BA-DAY-1-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -231,7 +228,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          CTFd 任意账户接管
+          以色列Cyberbit Range靶场 DAY 1-2
         </h1>
 
         <div class="post-meta">
@@ -242,7 +239,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-01-05 20:50:16 / 修改时间：21:01:39" itemprop="dateCreated datePublished" datetime="2021-01-05T20:50:16+08:00">2021-01-05</time>
+              <time title="创建时间：2021-03-18 18:32:09 / 修改时间：20:35:01" itemprop="dateCreated datePublished" datetime="2021-03-18T18:32:09+08:00">2021-03-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -250,7 +247,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/N1BOOK-CTF/" itemprop="url" rel="index"><span itemprop="name">N1BOOK CTF</span></a>
+                  <a href="/categories/APT/" itemprop="url" rel="index"><span itemprop="name">APT</span></a>
                 </span>
             </span>
 
@@ -269,14 +266,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.5k</span>
+              <span>2.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -288,20 +285,88 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="0x00-背景"><a href="#0x00-背景" class="headerlink" title="0x00 背景"></a>0x00 背景</h2><p>由于最近在搭建CTFd平台，google的时候找到了<code>CTFd v2.0.0-v2.2.2</code>的任意账户接管漏洞<code>CVE-2020-7245</code>，正好BUUCTF上有一道CTFd的题目，Start。</p>
+        <h1 id="0x00-背景"><a href="#0x00-背景" class="headerlink" title="0x00 背景"></a>0x00 背景</h1><p>学校购进了以色列著名的Cyberbit Range靶场，该靶场面向于蓝队成员。通过模拟多个攻击场景，训练蓝队队员的反入侵、溯源、取证等能力。个人觉得比较有意思，复盘一下这两天的演练情况。<br></p>
 <a id="more"></a>
 
-<h2 id="0x01-flag"><a href="#0x01-flag" class="headerlink" title="0x01 flag"></a>0x01 flag</h2><p><code>flag{ff2c3c0d-c5e1-4373-99aa-cbb3bbb9e983}</code></p>
-<h2 id="0x02-思路"><a href="#0x02-思路" class="headerlink" title="0x02 思路"></a>0x02 思路</h2><ol>
-<li>漏洞位于<code>CTFd/auth.py</code>的register函数，注册前后处理不一致。<code>Users.query.add_columns(&#39;name&#39;, &#39;id&#39;).filter_by(name=name).first()</code>对name进行处理，<code>name=name.strip()</code>对经过空白字符过滤后的name进行处理，导致我们可以在任意账户前后加空格绕过验证，这里以admin为例子。   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">register</span><span class="params">()</span>:</span></span><br><span class="line">    errors = get_errors()</span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'POST'</span>:</span><br><span class="line">        name = request.form[<span class="string">'name'</span>]</span><br><span class="line">        email_address = request.form[<span class="string">'email'</span>]</span><br><span class="line">        password = request.form[<span class="string">'password'</span>]</span><br><span class="line"></span><br><span class="line">        name_len = len(name) == <span class="number">0</span></span><br><span class="line">        names = Users.query.add_columns(<span class="string">'name'</span>, <span class="string">'id'</span>).filter_by(name=name).first()</span><br><span class="line">        emails = Users.query.add_columns(<span class="string">'email'</span>, <span class="string">'id'</span>).filter_by(email=email_address).first()</span><br><span class="line">        pass_short = len(password) == <span class="number">0</span></span><br><span class="line">        pass_long = len(password) &gt; <span class="number">128</span></span><br><span class="line">        valid_email = validators.validate_email(request.form[<span class="string">'email'</span>])</span><br><span class="line">        team_name_email_check = validators.validate_email(name)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> valid_email:</span><br><span class="line">            errors.append(<span class="string">"Please enter a valid email address"</span>)</span><br><span class="line">         ..........</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> len(errors) &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> render_template(</span><br><span class="line">                <span class="string">'register.html'</span>,</span><br><span class="line">                errors=errors,</span><br><span class="line">                name=request.form[<span class="string">'name'</span>],</span><br><span class="line">                email=request.form[<span class="string">'email'</span>],</span><br><span class="line">                password=request.form[<span class="string">'password'</span>]</span><br><span class="line">            )</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">with</span> app.app_context():</span><br><span class="line">                user = Users(</span><br><span class="line">                    name=name.strip(),</span><br><span class="line">                    email=email_address.lower(),</span><br><span class="line">                    password=password.strip()</span><br><span class="line">                )</span><br><span class="line">```   </span><br><span class="line"><span class="number">2.</span> 打开ctfd平台，用户界面只有一个admin账户，猜测是修改admin账户的密码，登录后拿到flag。  </span><br><span class="line">   ![](ctfd<span class="number">-1.</span>png)</span><br><span class="line"><span class="number">3.</span> 在[BUUOJ邮箱](http://mail.buuoj.cn/admin/ui/user/signup/mail.buuoj.cn)注册一个邮箱。通过这个邮箱去注册ctfd的加空格` admin `账户，此时user变为两个admin。  </span><br><span class="line">   ![](ctfd<span class="number">-2.</span>png)</span><br><span class="line"><span class="number">4.</span> 接下来需要找到重置密码的地方，根据auth.py文件，`/reset_password`接口可以重置密码。这里flask也是用的反序列化去获得用户名，反序列化NB。    </span><br><span class="line">   ![](ctfd<span class="number">-3.</span>png)</span><br><span class="line">```python</span><br><span class="line"><span class="meta">@auth.route('/reset_password', methods=['POST', 'GET'])</span></span><br><span class="line"><span class="meta">@auth.route('/reset_password/&lt;data&gt;', methods=['POST', 'GET'])</span></span><br><span class="line"><span class="meta">@ratelimit(method="POST", limit=10, interval=60)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reset_password</span><span class="params">(data=None)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> data <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            name = unserialize(data, max_age=<span class="number">1800</span>)</span><br><span class="line">        <span class="keyword">except</span> (BadTimeSignature, SignatureExpired):</span><br><span class="line">            <span class="keyword">return</span> render_template(<span class="string">'reset_password.html'</span>, errors=[<span class="string">'Your link has expired'</span>])</span><br><span class="line">        <span class="keyword">except</span> (BadSignature, TypeError, base64.binascii.Error):</span><br><span class="line">            <span class="keyword">return</span> render_template(<span class="string">'reset_password.html'</span>, errors=[<span class="string">'Your reset token is invalid'</span>])</span><br></pre></td></tr></table></figure></li>
-<li>这里注意邮箱账号必须是小写才能收到邮件，大写的账户收不到邮件，但是又可以注册，这里算是本人新发现的一个点，但好像并没有什么可以深入的漏洞点。<br><img src="/blog/CTFd-%E4%BB%BB%E6%84%8F%E8%B4%A6%E6%88%B7%E6%8E%A5%E7%AE%A1/ctfd-4.png" alt></li>
-<li>登录管理员界面，获得flag<br><img src="/blog/CTFd-%E4%BB%BB%E6%84%8F%E8%B4%A6%E6%88%B7%E6%8E%A5%E7%AE%A1/ctfd-5.png" alt></li>
+<h1 id="0x01-Windows下勒索软件场景"><a href="#0x01-Windows下勒索软件场景" class="headerlink" title="0x01 Windows下勒索软件场景"></a>0x01 Windows下勒索软件场景</h1><p><strong>知识点：邮件、宏病毒、Powershell、SMB横向移动</strong></p>
+<h3 id="攻击流程"><a href="#攻击流程" class="headerlink" title="攻击流程"></a>攻击流程</h3><ol>
+<li>攻击者向用户A的邮箱发送钓鱼邮件，钓鱼邮件中包含一个含宏文档</li>
+<li>用户A打开宏文档，宏病毒执行，从C&amp;C服务器下载恶意PowerShell payload</li>
+<li>若当前电脑没有被勒索，恶意payload会生成当前主机的唯一uuid，并利用RSA和DES加密对用户文件进行加密。</li>
+<li>将所有被加密的文件路径保存在注册表<code>HKCU/Software/MicroSoft/UDE</code>中，将用户uuid与RSA秘钥回传给C&amp;C服务器。在用户主文件夹下生成一个readme.html，用于对用户进行勒索。</li>
+<li>利用SMB模块弱密码或漏洞进行横向移动。</li>
 </ol>
-<h2 id="0x03-总结"><a href="#0x03-总结" class="headerlink" title="0x03 总结"></a>0x03 总结</h2><p>从搭建CTF的到发现已有<code>CVE-2020-7245</code>，借助BUUCTF平台正好完成一道任意账户接管漏洞题目，整理一下攻击链。</p>
-<ul>
-<li><code>CTFd/auth.py</code>文件的注册函数部分，添加用户名是直接用的<code>name</code>加入到数据库，但实际生成用户的时候是<code>name=name.strip(),email=email_address.lower(),password=password.strip()</code>。</li>
-<li>在name前后加空格，可以注册新用户<code>admin</code>，已登录账户发起重置密码请求，实际修改的是admin的密码。</li>
-<li>通过新密码登录admin账户，拿到管理权限。<br>在渗透测试的过程中，一些细小的差异点，可以是能否挖掘到漏洞的关键，例如本题的admin账户前后加空格、邮箱账号小写发送等。</li>
+<h3 id="蓝队审计流程"><a href="#蓝队审计流程" class="headerlink" title="蓝队审计流程"></a>蓝队审计流程</h3><p>根据当时的情况进行推演。教官在靶场管理员界面点击攻击按钮，提示某一台Windows 7电脑中了勒索病毒。我们通过远程桌面登录被勒索的电脑，查看防火墙日志、Qradar日志。</p>
+<ol>
+<li>发现用户User082的文档文件被加密，同时系统日志发现vssadmin操作（删除备份文件）</li>
+<li>邮件组提示我们User082最近收到了一封恶意邮件，邮件附件中含有恶意宏文档</li>
+<li>我们将文件按时间排序，找到可疑word文件。无法直接获得word文档中的宏代码，利用文件编辑器搜索<code>http</code>关键字，定位到C&amp;C，同时获得Powershell脚本，脚本攻击方式与攻击流程中相似</li>
+<li>教官提示，勒索软件已经横向移动了，我们登陆到User055的主机，同样用户文件已经被加密，注册表中<code>HKCU/Software/MicroSoft/UDE</code>文件列表比User082的文件列表多，多了一个共享盘文件路径</li>
+<li>防火墙ban C&amp;C服务器ip</li>
+</ol>
+<h3 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h3><ol>
+<li>第一次我们用管理员身份登陆用户主机，注册表中不存在<code>HKCU/Software/MicroSoft/UDE</code>，这是因为User082与管理员的HCKU表不一样，实际审计在这里卡了很久。</li>
+<li>User082与User055用一个共享盘，虽然我们先登陆的是User082，但实际攻击先发生在User055的主机上，只不过后来横向移动到User082上。所以User055的勒索软件会先加密共享盘的内容，后续User082上的勒索软件不再对共享盘进行加密</li>
+</ol>
+<h1 id="0x02-Linux下WEB服务器被打下线"><a href="#0x02-Linux下WEB服务器被打下线" class="headerlink" title="0x02 Linux下WEB服务器被打下线"></a>0x02 Linux下WEB服务器被打下线</h1><p><strong>知识点：ssh暴力破解、crontab</strong></p>
+<h3 id="攻击流程-1"><a href="#攻击流程-1" class="headerlink" title="攻击流程"></a>攻击流程</h3><ol>
+<li>攻击者对web服务器进行端口扫描，发现22端口，暴力破解用户ssh密码，并登陆成功</li>
+<li>设置两个计划任务 <ul>
+<li>每秒钟 <code>service apache2 stop</code></li>
+<li>每秒钟 执行恶意python脚本，将/etc/passwd、/etc/shadow复制到/tmp目录，将文件内容发送给C&amp;C，达到持续控制目的</li>
+</ul>
+</li>
+</ol>
+<h3 id="蓝队审计流程-1"><a href="#蓝队审计流程-1" class="headerlink" title="蓝队审计流程"></a>蓝队审计流程</h3><p>教官提示攻击开始，没有任何提示</p>
+<ol>
+<li>在Qradar上发现高危告警，某台服务器A上面的http服务挂了，我通过ssh登录服务器A，按照以往思路，依次排查<ul>
+<li><code>/var/log</code>下面的日志文件auth.log等</li>
+<li>查看www文件夹下是否有webshell</li>
+<li>查看apache2的access.log和error.log</li>
+<li>查看计划任务/etc/crontab</li>
+<li>w查看当前登录用户是否包含攻击者</li>
+</ul>
+</li>
+<li>按照时间排序对告警事件进行回溯，攻击者首先利用port scan发起大量SYN请求，然后告警事件提示ssh密码输入错误</li>
+<li>开始排查auth.log.1文件，发现有攻击者的ssh爆破信息，攻击者已经成功登陆</li>
+<li>这里我们有个小问题，计划任务排查不完全，导致我们没有发现让apache服务停止的计划任务。后续用<code>crontab -l</code>列出当前计划任务项，发现两项计划任务，对代码进行分析，获得C&amp;C服务器地址</li>
+<li><code>crontab -e</code>编辑模式清除计划任务</li>
+</ol>
+<h3 id="Tips-1"><a href="#Tips-1" class="headerlink" title="Tips"></a>Tips</h3><ol>
+<li>auth.log里面没有攻击者的登录信息，其保存在auth.log.1。以后需要对这一系列文件进行排查</li>
+<li>计划任务默认配置文件中没有计划任务项，我们遗漏了其他文件，导致排查不干净，浪费很多时间，<code>crontab -l</code>解围</li>
+</ol>
+<h1 id="0x03-FTP漏洞脱数据库"><a href="#0x03-FTP漏洞脱数据库" class="headerlink" title="0x03 FTP漏洞脱数据库"></a>0x03 FTP漏洞脱数据库</h1><p><strong>知识点：MSSQL日志、FTP漏洞、ssh隧道数据传输</strong></p>
+<h3 id="网络拓扑："><a href="#网络拓扑：" class="headerlink" title="网络拓扑："></a>网络拓扑：</h3><ol>
+<li>内网主机A Windows：攻击者通过A发起攻击</li>
+<li>FTP服务器 Linux：含OSVDB69562漏洞，可以获取root权限</li>
+<li>MSSQL服务器 Windows：数据库没有设置仅本机访问</li>
+</ol>
+<h3 id="攻击流程-2"><a href="#攻击流程-2" class="headerlink" title="攻击流程"></a>攻击流程</h3><ol>
+<li>攻击者进入内网，对内网FTP发起端口扫描，利用ping扫描内网段，混淆视线，加大分析日志分析难度</li>
+<li>利用ftp漏洞，登录FTP服务器，将FTP服务器当做跳板对MSSQL服务器进行暴力破解登录，dump数据到<code>/tmp/database.txt</code></li>
+<li>在21端口ftp构建ssh隧道，传输数据到内网主机A</li>
+</ol>
+<h3 id="蓝队审计流程-2"><a href="#蓝队审计流程-2" class="headerlink" title="蓝队审计流程"></a>蓝队审计流程</h3><p>教官提示ftp</p>
+<ol>
+<li>告警事件提示MSSQL密码错误，有大量针对FTP服务器的端口扫描，ssh密码错误告警。由于基本熟悉了相关流程，这一次我们的速度比之前快很多</li>
+<li>我通过远程桌面登录MSSQL服务器，登录到数据库后，查看到有几个从FTP服务器发起的连接远程数据库的日志。</li>
+<li>ssh登录FTP服务器，查看auth.log日志，发现从主机A的ssh暴力破解日志</li>
+<li>查看/tmp目录下文件，发现了从数据库dump出的数据</li>
+<li>防火墙ban 相关ip，升级MSSQL和ssh安全配置策略，例如仅本地等</li>
+</ol>
+<h1 id="0x04-总结"><a href="#0x04-总结" class="headerlink" title="0x04 总结"></a>0x04 总结</h1><h3 id="攻击手法"><a href="#攻击手法" class="headerlink" title="攻击手法"></a>攻击手法</h3><ul>
+<li>恶意邮件、宏文档、Powershell</li>
+<li>端口扫描、ssh暴力破解、ftp RCE漏洞</li>
+<li>计划任务、注册表<h3 id="审计"><a href="#审计" class="headerlink" title="审计"></a>审计</h3></li>
+<li><code>/var/log</code>日志<ul>
+<li>登录日志</li>
+<li>web日志</li>
+<li>数据库日志等</li>
+</ul>
+</li>
+<li>低权限目录，/tmp等</li>
+<li>注册表、计划任务排查</li>
 </ul>
 
     </div>
@@ -312,8 +377,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/CTFd/" rel="tag"># CTFd</a>
-              <a href="/tags/CVE-2020-7245/" rel="tag"># CVE-2020-7245</a>
+              <a href="/tags/%E5%8B%92%E7%B4%A2%E8%BD%AF%E4%BB%B6/" rel="tag"># 勒索软件</a>
+              <a href="/tags/%E8%93%9D%E9%98%9F/" rel="tag"># 蓝队</a>
           </div>
 
         
@@ -322,13 +387,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/blog/N1BOOK-thinkphp%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/" rel="prev" title="N1BOOK thinkphp反序列化利用链">
-      <i class="fa fa-chevron-left"></i> N1BOOK thinkphp反序列化利用链
+    <a href="/blog/nginx-ModSecurity-%E6%90%AD%E5%BB%BAWAF-Ubuntu-20-04/" rel="prev" title="nginx + ModSecurity 搭建WAF 基于Ubuntu20.04">
+      <i class="fa fa-chevron-left"></i> nginx + ModSecurity 搭建WAF 基于Ubuntu20.04
     </a></div>
-      <div class="post-nav-item">
-    <a href="/blog/nginx-ModSecurity-%E6%90%AD%E5%BB%BAWAF-Ubuntu-20-04/" rel="next" title="nginx + ModSecurity 搭建WAF 基于Ubuntu20.04">
-      nginx + ModSecurity 搭建WAF 基于Ubuntu20.04 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -388,7 +450,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-背景"><span class="nav-number">1.</span> <span class="nav-text">0x00 背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-flag"><span class="nav-number">2.</span> <span class="nav-text">0x01 flag</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-思路"><span class="nav-number">3.</span> <span class="nav-text">0x02 思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-总结"><span class="nav-number">4.</span> <span class="nav-text">0x03 总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x00-背景"><span class="nav-number">1.</span> <span class="nav-text">0x00 背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-Windows下勒索软件场景"><span class="nav-number">2.</span> <span class="nav-text">0x01 Windows下勒索软件场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#攻击流程"><span class="nav-number">2.0.1.</span> <span class="nav-text">攻击流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#蓝队审计流程"><span class="nav-number">2.0.2.</span> <span class="nav-text">蓝队审计流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tips"><span class="nav-number">2.0.3.</span> <span class="nav-text">Tips</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-Linux下WEB服务器被打下线"><span class="nav-number">3.</span> <span class="nav-text">0x02 Linux下WEB服务器被打下线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#攻击流程-1"><span class="nav-number">3.0.1.</span> <span class="nav-text">攻击流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#蓝队审计流程-1"><span class="nav-number">3.0.2.</span> <span class="nav-text">蓝队审计流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tips-1"><span class="nav-number">3.0.3.</span> <span class="nav-text">Tips</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-FTP漏洞脱数据库"><span class="nav-number">4.</span> <span class="nav-text">0x03 FTP漏洞脱数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络拓扑："><span class="nav-number">4.0.1.</span> <span class="nav-text">网络拓扑：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#攻击流程-2"><span class="nav-number">4.0.2.</span> <span class="nav-text">攻击流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#蓝队审计流程-2"><span class="nav-number">4.0.3.</span> <span class="nav-text">蓝队审计流程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x04-总结"><span class="nav-number">5.</span> <span class="nav-text">0x04 总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#攻击手法"><span class="nav-number">5.0.1.</span> <span class="nav-text">攻击手法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#审计"><span class="nav-number">5.0.2.</span> <span class="nav-text">审计</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

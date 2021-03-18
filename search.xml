@@ -1,6 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>以色列Cyberbit Range靶场 DAY 1-2</title>
+    <url>/blog/%E4%BB%A5%E8%89%B2%E5%88%97Cyberbit-Range%E9%9D%B6%E5%9C%BA-DAY-1-2/</url>
+    <content><![CDATA[<h1 id="0x00-背景"><a href="#0x00-背景" class="headerlink" title="0x00 背景"></a>0x00 背景</h1><p>学校购进了以色列著名的Cyberbit Range靶场，该靶场面向于蓝队成员。通过模拟多个攻击场景，训练蓝队队员的反入侵、溯源、取证等能力。个人觉得比较有意思，复盘一下这两天的演练情况。<br></p>
+<a id="more"></a>
+
+<h1 id="0x01-Windows下勒索软件场景"><a href="#0x01-Windows下勒索软件场景" class="headerlink" title="0x01 Windows下勒索软件场景"></a>0x01 Windows下勒索软件场景</h1><p><strong>知识点：邮件、宏病毒、Powershell、SMB横向移动</strong></p>
+<h3 id="攻击流程"><a href="#攻击流程" class="headerlink" title="攻击流程"></a>攻击流程</h3><ol>
+<li>攻击者向用户A的邮箱发送钓鱼邮件，钓鱼邮件中包含一个含宏文档</li>
+<li>用户A打开宏文档，宏病毒执行，从C&amp;C服务器下载恶意PowerShell payload</li>
+<li>若当前电脑没有被勒索，恶意payload会生成当前主机的唯一uuid，并利用RSA和DES加密对用户文件进行加密。</li>
+<li>将所有被加密的文件路径保存在注册表<code>HKCU/Software/MicroSoft/UDE</code>中，将用户uuid与RSA秘钥回传给C&amp;C服务器。在用户主文件夹下生成一个readme.html，用于对用户进行勒索。</li>
+<li>利用SMB模块弱密码或漏洞进行横向移动。</li>
+</ol>
+<h3 id="蓝队审计流程"><a href="#蓝队审计流程" class="headerlink" title="蓝队审计流程"></a>蓝队审计流程</h3><p>根据当时的情况进行推演。教官在靶场管理员界面点击攻击按钮，提示某一台Windows 7电脑中了勒索病毒。我们通过远程桌面登录被勒索的电脑，查看防火墙日志、Qradar日志。</p>
+<ol>
+<li>发现用户User082的文档文件被加密，同时系统日志发现vssadmin操作（删除备份文件）</li>
+<li>邮件组提示我们User082最近收到了一封恶意邮件，邮件附件中含有恶意宏文档</li>
+<li>我们将文件按时间排序，找到可疑word文件。无法直接获得word文档中的宏代码，利用文件编辑器搜索<code>http</code>关键字，定位到C&amp;C，同时获得Powershell脚本，脚本攻击方式与攻击流程中相似</li>
+<li>教官提示，勒索软件已经横向移动了，我们登陆到User055的主机，同样用户文件已经被加密，注册表中<code>HKCU/Software/MicroSoft/UDE</code>文件列表比User082的文件列表多，多了一个共享盘文件路径</li>
+<li>防火墙ban C&amp;C服务器ip</li>
+</ol>
+<h3 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h3><ol>
+<li>第一次我们用管理员身份登陆用户主机，注册表中不存在<code>HKCU/Software/MicroSoft/UDE</code>，这是因为User082与管理员的HCKU表不一样，实际审计在这里卡了很久。</li>
+<li>User082与User055用一个共享盘，虽然我们先登陆的是User082，但实际攻击先发生在User055的主机上，只不过后来横向移动到User082上。所以User055的勒索软件会先加密共享盘的内容，后续User082上的勒索软件不再对共享盘进行加密</li>
+</ol>
+<h1 id="0x02-Linux下WEB服务器被打下线"><a href="#0x02-Linux下WEB服务器被打下线" class="headerlink" title="0x02 Linux下WEB服务器被打下线"></a>0x02 Linux下WEB服务器被打下线</h1><p><strong>知识点：ssh暴力破解、crontab</strong></p>
+<h3 id="攻击流程-1"><a href="#攻击流程-1" class="headerlink" title="攻击流程"></a>攻击流程</h3><ol>
+<li>攻击者对web服务器进行端口扫描，发现22端口，暴力破解用户ssh密码，并登陆成功</li>
+<li>设置两个计划任务 <ul>
+<li>每秒钟 <code>service apache2 stop</code></li>
+<li>每秒钟 执行恶意python脚本，将/etc/passwd、/etc/shadow复制到/tmp目录，将文件内容发送给C&amp;C，达到持续控制目的</li>
+</ul>
+</li>
+</ol>
+<h3 id="蓝队审计流程-1"><a href="#蓝队审计流程-1" class="headerlink" title="蓝队审计流程"></a>蓝队审计流程</h3><p>教官提示攻击开始，没有任何提示</p>
+<ol>
+<li>在Qradar上发现高危告警，某台服务器A上面的http服务挂了，我通过ssh登录服务器A，按照以往思路，依次排查<ul>
+<li><code>/var/log</code>下面的日志文件auth.log等</li>
+<li>查看www文件夹下是否有webshell</li>
+<li>查看apache2的access.log和error.log</li>
+<li>查看计划任务/etc/crontab</li>
+<li>w查看当前登录用户是否包含攻击者</li>
+</ul>
+</li>
+<li>按照时间排序对告警事件进行回溯，攻击者首先利用port scan发起大量SYN请求，然后告警事件提示ssh密码输入错误</li>
+<li>开始排查auth.log.1文件，发现有攻击者的ssh爆破信息，攻击者已经成功登陆</li>
+<li>这里我们有个小问题，计划任务排查不完全，导致我们没有发现让apache服务停止的计划任务。后续用<code>crontab -l</code>列出当前计划任务项，发现两项计划任务，对代码进行分析，获得C&amp;C服务器地址</li>
+<li><code>crontab -e</code>编辑模式清除计划任务</li>
+</ol>
+<h3 id="Tips-1"><a href="#Tips-1" class="headerlink" title="Tips"></a>Tips</h3><ol>
+<li>auth.log里面没有攻击者的登录信息，其保存在auth.log.1。以后需要对这一系列文件进行排查</li>
+<li>计划任务默认配置文件中没有计划任务项，我们遗漏了其他文件，导致排查不干净，浪费很多时间，<code>crontab -l</code>解围</li>
+</ol>
+<h1 id="0x03-FTP漏洞脱数据库"><a href="#0x03-FTP漏洞脱数据库" class="headerlink" title="0x03 FTP漏洞脱数据库"></a>0x03 FTP漏洞脱数据库</h1><p><strong>知识点：MSSQL日志、FTP漏洞、ssh隧道数据传输</strong></p>
+<h3 id="网络拓扑："><a href="#网络拓扑：" class="headerlink" title="网络拓扑："></a>网络拓扑：</h3><ol>
+<li>内网主机A Windows：攻击者通过A发起攻击</li>
+<li>FTP服务器 Linux：含OSVDB69562漏洞，可以获取root权限</li>
+<li>MSSQL服务器 Windows：数据库没有设置仅本机访问</li>
+</ol>
+<h3 id="攻击流程-2"><a href="#攻击流程-2" class="headerlink" title="攻击流程"></a>攻击流程</h3><ol>
+<li>攻击者进入内网，对内网FTP发起端口扫描，利用ping扫描内网段，混淆视线，加大分析日志分析难度</li>
+<li>利用ftp漏洞，登录FTP服务器，将FTP服务器当做跳板对MSSQL服务器进行暴力破解登录，dump数据到<code>/tmp/database.txt</code></li>
+<li>在21端口ftp构建ssh隧道，传输数据到内网主机A</li>
+</ol>
+<h3 id="蓝队审计流程-2"><a href="#蓝队审计流程-2" class="headerlink" title="蓝队审计流程"></a>蓝队审计流程</h3><p>教官提示ftp</p>
+<ol>
+<li>告警事件提示MSSQL密码错误，有大量针对FTP服务器的端口扫描，ssh密码错误告警。由于基本熟悉了相关流程，这一次我们的速度比之前快很多</li>
+<li>我通过远程桌面登录MSSQL服务器，登录到数据库后，查看到有几个从FTP服务器发起的连接远程数据库的日志。</li>
+<li>ssh登录FTP服务器，查看auth.log日志，发现从主机A的ssh暴力破解日志</li>
+<li>查看/tmp目录下文件，发现了从数据库dump出的数据</li>
+<li>防火墙ban 相关ip，升级MSSQL和ssh安全配置策略，例如仅本地等</li>
+</ol>
+<h1 id="0x04-总结"><a href="#0x04-总结" class="headerlink" title="0x04 总结"></a>0x04 总结</h1><h3 id="攻击手法"><a href="#攻击手法" class="headerlink" title="攻击手法"></a>攻击手法</h3><ul>
+<li>恶意邮件、宏文档、Powershell</li>
+<li>端口扫描、ssh暴力破解、ftp RCE漏洞</li>
+<li>计划任务、注册表<h3 id="审计"><a href="#审计" class="headerlink" title="审计"></a>审计</h3></li>
+<li><code>/var/log</code>日志<ul>
+<li>登录日志</li>
+<li>web日志</li>
+<li>数据库日志等</li>
+</ul>
+</li>
+<li>低权限目录，/tmp等</li>
+<li>注册表、计划任务排查</li>
+</ul>
+]]></content>
+      <categories>
+        <category>APT</category>
+      </categories>
+      <tags>
+        <tag>勒索软件</tag>
+        <tag>蓝队</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>nginx + ModSecurity 搭建WAF 基于Ubuntu20.04</title>
     <url>/blog/nginx-ModSecurity-%E6%90%AD%E5%BB%BAWAF-Ubuntu-20-04/</url>
     <content><![CDATA[<h1 id="0x00-背景"><a href="#0x00-背景" class="headerlink" title="0x00 背景"></a>0x00 背景</h1><p>这段时间参加了字节跳动安全风控部门的训练营，6人一组对含有漏洞的WEB应用进行渗透测试。渗透测试后搭建WAF对vul WEB应用进行防护。<br><br>网上关于CentOS搭建ModSecurity WAF的文章比较多，这里我记录一下 Ubuntu 20.04 + Apache + nginx + ModSecurity实现简单的WAF功能<br><br><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL1NwaWRlckxhYnMvTW9kU2VjdXJpdHk=" title="https://github.com/SpiderLabs/ModSecurity">ModSecurity<i class="fa fa-external-link"></i></span><br></p>
