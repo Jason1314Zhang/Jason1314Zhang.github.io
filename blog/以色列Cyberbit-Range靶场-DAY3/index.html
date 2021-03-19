@@ -20,17 +20,20 @@
     var CONFIG = {"hostname":"jason1314zhang.github.io","root":"/","scheme":"Gemini","version":"7.7.2","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="WHU Cybersapce Security Master">
-<meta property="og:type" content="website">
-<meta property="og:title" content="SuperJason&#39;s blog">
-<meta property="og:url" content="https://jason1314zhang.github.io/archives/2020/index.html">
+  <meta name="description" content="0x00 背景复盘Cyberbit Range靶场第三天演练前文：以色列Cyberbit Range靶场 DAY 1-2。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="以色列Cyberbit Range靶场 DAY3">
+<meta property="og:url" content="https://jason1314zhang.github.io/blog/%E4%BB%A5%E8%89%B2%E5%88%97Cyberbit-Range%E9%9D%B6%E5%9C%BA-DAY3/index.html">
 <meta property="og:site_name" content="SuperJason&#39;s blog">
-<meta property="og:description" content="WHU Cybersapce Security Master">
+<meta property="og:description" content="0x00 背景复盘Cyberbit Range靶场第三天演练前文：以色列Cyberbit Range靶场 DAY 1-2。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-19T03:37:58.000Z">
+<meta property="article:modified_time" content="2021-03-19T05:07:50.080Z">
 <meta property="article:author" content="SuperJason">
+<meta property="article:tag" content="蓝队">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://jason1314zhang.github.io/archives/2020/">
+<link rel="canonical" href="https://jason1314zhang.github.io/blog/%E4%BB%A5%E8%89%B2%E5%88%97Cyberbit-Range%E9%9D%B6%E5%9C%BA-DAY3/">
 
 
 <script id="page-configurations">
@@ -38,11 +41,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false
+    isPost : true
   };
 </script>
 
-  <title>归档 | SuperJason's blog</title>
+  <title>以色列Cyberbit Range靶场 DAY3 | SuperJason's blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HZQ6CYEV9N"></script>
     <script>
@@ -206,149 +209,147 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 10 篇日志。 继续努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jason1314zhang.github.io/blog/%E4%BB%A5%E8%89%B2%E5%88%97Cyberbit-Range%E9%9D%B6%E5%9C%BA-DAY3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="SuperJason">
+      <meta itemprop="description" content="WHU Cybersapce Security Master">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SuperJason's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          以色列Cyberbit Range靶场 DAY3
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-19 11:37:58 / 修改时间：13:07:50" itemprop="dateCreated datePublished" datetime="2021-03-19T11:37:58+08:00">2021-03-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/APT/" itemprop="url" rel="index"><span itemprop="name">APT</span></a>
+                </span>
+            </span>
+
+
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2020</h1>
-    </div>
+        <h1 id="0x00-背景"><a href="#0x00-背景" class="headerlink" title="0x00 背景"></a>0x00 背景</h1><p>复盘Cyberbit Range靶场第三天演练<br>前文：<a href="https://jason1314zhang.github.io/blog/以色列Cyberbit-Range靶场-DAY-1-2/">以色列Cyberbit Range靶场 DAY 1-2</a>。<br></p>
+<a id="more"></a>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-12-29T22:06:45+08:00"
-              content="2020-12-29">
-          12-29
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/blog/N1BOOK-thinkphp%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8%E9%93%BE/" itemprop="url">
-            <span itemprop="name">N1BOOK thinkphp反序列化利用链</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-12-26T20:46:20+08:00"
-              content="2020-12-26">
-          12-26
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/blog/BUUCTF-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" itemprop="url">
-            <span itemprop="name">BUUCTF 命令执行</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-12-18T20:24:13+08:00"
-              content="2020-12-18">
-          12-18
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/blog/N1BOOK-Writeup/" itemprop="url">
-            <span itemprop="name">N1BOOK Writeup</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-05-21T23:42:27+08:00"
-              content="2020-05-21">
-          05-21
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/blog/APT34-Glimpse-%E5%B7%A5%E5%85%B7%E5%88%86%E6%9E%90/" itemprop="url">
-            <span itemprop="name">APT34 Glimpse 工具分析</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-05T21:36:21+08:00"
-              content="2020-04-05">
-          04-05
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/blog/%E8%85%BE%E8%AE%AF%E6%B8%B8%E6%88%8F%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B2020PC%E6%96%B9%E5%90%91%E5%88%9D%E8%B5%9B/" itemprop="url">
-            <span itemprop="name">腾讯游戏安全竞赛2020PC方向初赛</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-04-05T18:25:49+08:00"
-              content="2020-04-05">
-          04-05
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/blog/APT34-Glimpse/" itemprop="url">
-            <span itemprop="name">APT34 Glimpse 工具初探</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
+<h1 id="从DNS劫持到获取DC权限"><a href="#从DNS劫持到获取DC权限" class="headerlink" title="从DNS劫持到获取DC权限"></a>从DNS劫持到获取DC权限</h1><p><strong>知识点：DNS劫持、MSF payload、DC</strong></p>
+<h3 id="网络拓扑："><a href="#网络拓扑：" class="headerlink" title="网络拓扑："></a>网络拓扑：</h3><ol>
+<li>内网主机A Linux：<code>192.168.100.9</code></li>
+<li>主机监控服务器 装有Zenoss服务：<code>192.168.200.133</code></li>
+<li>DC域控 控制域192.168.200.0/24：保存该域所有用户信息</li>
+<li>域内其他服务器 192.168.200.*：Apache、SQL、Mail、Snort等</li>
+</ol>
+<h3 id="攻击流程"><a href="#攻击流程" class="headerlink" title="攻击流程"></a>攻击流程</h3><ol>
+<li>攻击者劫持DNS服务器，主机A用户User037访问正常网页，页面跳转到含有恶意payload（jar包）的网站，用户点击恶意payload</li>
+<li>该payload是MSF payload，可以反弹一个shell给攻击者，攻击者拿下内网主机A权限 <code>192.168.100.9</code></li>
+<li>将A当做跳板机，爆破DC ssh密码，获得DC权限，拿下域内所有用户凭据</li>
+<li>为了掩盖攻击行为，攻击者通过DC关闭内域内SQL、Apache等服务器混淆视线</li>
+</ol>
+<h3 id="蓝队审计流程"><a href="#蓝队审计流程" class="headerlink" title="蓝队审计流程"></a>蓝队审计流程</h3><p>没有任何提示，开始审计</p>
+<ol>
+<li>首先在Qrader上我发现了一条告警，提示<code>192.168.100.9</code>一直在向199开头的外网服务器发起请求，怀疑是C&amp;C服务器</li>
+<li>我们登录被攻击者控制的肉鸡A，<code>netstat -natp |grep 22</code>发现有向Zenoss服务器的ssh连接，同时我们发现主机监控服务器<code>192.168.200.133</code>上的Zenoss服务无法访问，且域内大多数服务器被关闭</li>
+<li>我们关闭从肉鸡A到Zenoss服务器的ssh连接后，通过管理员后台重新启动域内服务器，此时域内服务器不会被自动关闭</li>
+<li>根据以往经验，攻击者进入内网后，一般会拿下DC权限，同时我们在防火墙上发现有连接DC服务器的连接。我们登录到DC服务器上，准备审计LDAP信息，未果</li>
+<li>现在初步的，我们打掉了攻击者通过跳板机A向<code>192.168.200</code>域内发起的攻击，知道了攻击者向DC和Zenoss服务器发起攻击，但是具体利用的什么攻击，用的什么payload我们没有定位。</li>
+<li>经过提示，我们找到199开头的外网服务器上的一个恶意jar包，并且在主机A上发现了这个jar包（审计到初始payload），通过初步分析jar包，发现它是MSF生成的反弹shell payload。</li>
+<li>重新梳理线索，由于我们很早的关闭了肉鸡向Zenoss服务器的ssh连接连接，相当于打掉了反弹shell，后续攻击者无法通过该shell让域内服务器下线。但DC这里，一直困扰我，攻击者到底拿到了哪些数据，在DC服务器和用户主机A上也没有找到相关数据传输的日志。教官提示攻击者是拿下DC权限，获取用户信息，为了以后的攻击做准备，关闭域内部分服务器只是为了混淆视线。</li>
+<li>后续我问，攻击者拿下了DC上的哪些用户数据，以及为什么DNS污染的证据在哪，教官表示这是模拟场景，并不完全与真实场景相同，这个场景内没有设置相关证据，over。</li>
+</ol>
+<h3 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h3><ol>
+<li>这一次的网络拓扑场景更加复杂，如何从大量事件中定位出关键事件是很重要的。<ul>
+<li>例如Qrader告警提示主机A向C&amp;C发数据，这里应该想到反弹shell。</li>
+<li>防火墙记录了主机A第一次向C&amp;C发起请求，这时应该及时分析C&amp;C网页上的载荷，DNS劫持到了youtube.com，用户误以为是安全网站，点击了上面的恶意payload，攻击开始</li>
+</ul>
+</li>
+<li>需要将各种事件串起来，类似于剧本杀，时间、地点、事件对应上。分析、调试的能力需要加强</li>
+</ol>
 
     </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%93%9D%E9%98%9F/" rel="tag"># 蓝队</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/%E4%BB%A5%E8%89%B2%E5%88%97Cyberbit-Range%E9%9D%B6%E5%9C%BA-DAY-1-2/" rel="prev" title="以色列Cyberbit Range靶场 DAY 1-2">
+      <i class="fa fa-chevron-left"></i> 以色列Cyberbit Range靶场 DAY 1-2
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
@@ -399,6 +400,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x00-背景"><span class="nav-number">1.</span> <span class="nav-text">0x00 背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#从DNS劫持到获取DC权限"><span class="nav-number">2.</span> <span class="nav-text">从DNS劫持到获取DC权限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络拓扑："><span class="nav-number">2.0.1.</span> <span class="nav-text">网络拓扑：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#攻击流程"><span class="nav-number">2.0.2.</span> <span class="nav-text">攻击流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#蓝队审计流程"><span class="nav-number">2.0.3.</span> <span class="nav-text">蓝队审计流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tips"><span class="nav-number">2.0.4.</span> <span class="nav-text">Tips</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

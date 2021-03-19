@@ -1,6 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>以色列Cyberbit Range靶场 DAY3</title>
+    <url>/blog/%E4%BB%A5%E8%89%B2%E5%88%97Cyberbit-Range%E9%9D%B6%E5%9C%BA-DAY3/</url>
+    <content><![CDATA[<h1 id="0x00-背景"><a href="#0x00-背景" class="headerlink" title="0x00 背景"></a>0x00 背景</h1><p>复盘Cyberbit Range靶场第三天演练<br>前文：<a href="https://jason1314zhang.github.io/blog/以色列Cyberbit-Range靶场-DAY-1-2/">以色列Cyberbit Range靶场 DAY 1-2</a>。<br></p>
+<a id="more"></a>
+
+<h1 id="从DNS劫持到获取DC权限"><a href="#从DNS劫持到获取DC权限" class="headerlink" title="从DNS劫持到获取DC权限"></a>从DNS劫持到获取DC权限</h1><p><strong>知识点：DNS劫持、MSF payload、DC</strong></p>
+<h3 id="网络拓扑："><a href="#网络拓扑：" class="headerlink" title="网络拓扑："></a>网络拓扑：</h3><ol>
+<li>内网主机A Linux：<code>192.168.100.9</code></li>
+<li>主机监控服务器 装有Zenoss服务：<code>192.168.200.133</code></li>
+<li>DC域控 控制域192.168.200.0/24：保存该域所有用户信息</li>
+<li>域内其他服务器 192.168.200.*：Apache、SQL、Mail、Snort等</li>
+</ol>
+<h3 id="攻击流程"><a href="#攻击流程" class="headerlink" title="攻击流程"></a>攻击流程</h3><ol>
+<li>攻击者劫持DNS服务器，主机A用户User037访问正常网页，页面跳转到含有恶意payload（jar包）的网站，用户点击恶意payload</li>
+<li>该payload是MSF payload，可以反弹一个shell给攻击者，攻击者拿下内网主机A权限 <code>192.168.100.9</code></li>
+<li>将A当做跳板机，爆破DC ssh密码，获得DC权限，拿下域内所有用户凭据</li>
+<li>为了掩盖攻击行为，攻击者通过DC关闭内域内SQL、Apache等服务器混淆视线</li>
+</ol>
+<h3 id="蓝队审计流程"><a href="#蓝队审计流程" class="headerlink" title="蓝队审计流程"></a>蓝队审计流程</h3><p>没有任何提示，开始审计</p>
+<ol>
+<li>首先在Qrader上我发现了一条告警，提示<code>192.168.100.9</code>一直在向199开头的外网服务器发起请求，怀疑是C&amp;C服务器</li>
+<li>我们登录被攻击者控制的肉鸡A，<code>netstat -natp |grep 22</code>发现有向Zenoss服务器的ssh连接，同时我们发现主机监控服务器<code>192.168.200.133</code>上的Zenoss服务无法访问，且域内大多数服务器被关闭</li>
+<li>我们关闭从肉鸡A到Zenoss服务器的ssh连接后，通过管理员后台重新启动域内服务器，此时域内服务器不会被自动关闭</li>
+<li>根据以往经验，攻击者进入内网后，一般会拿下DC权限，同时我们在防火墙上发现有连接DC服务器的连接。我们登录到DC服务器上，准备审计LDAP信息，未果</li>
+<li>现在初步的，我们打掉了攻击者通过跳板机A向<code>192.168.200</code>域内发起的攻击，知道了攻击者向DC和Zenoss服务器发起攻击，但是具体利用的什么攻击，用的什么payload我们没有定位。</li>
+<li>经过提示，我们找到199开头的外网服务器上的一个恶意jar包，并且在主机A上发现了这个jar包（审计到初始payload），通过初步分析jar包，发现它是MSF生成的反弹shell payload。</li>
+<li>重新梳理线索，由于我们很早的关闭了肉鸡向Zenoss服务器的ssh连接连接，相当于打掉了反弹shell，后续攻击者无法通过该shell让域内服务器下线。但DC这里，一直困扰我，攻击者到底拿到了哪些数据，在DC服务器和用户主机A上也没有找到相关数据传输的日志。教官提示攻击者是拿下DC权限，获取用户信息，为了以后的攻击做准备，关闭域内部分服务器只是为了混淆视线。</li>
+<li>后续我问，攻击者拿下了DC上的哪些用户数据，以及为什么DNS污染的证据在哪，教官表示这是模拟场景，并不完全与真实场景相同，这个场景内没有设置相关证据，over。</li>
+</ol>
+<h3 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h3><ol>
+<li>这一次的网络拓扑场景更加复杂，如何从大量事件中定位出关键事件是很重要的。<ul>
+<li>例如Qrader告警提示主机A向C&amp;C发数据，这里应该想到反弹shell。</li>
+<li>防火墙记录了主机A第一次向C&amp;C发起请求，这时应该及时分析C&amp;C网页上的载荷，DNS劫持到了youtube.com，用户误以为是安全网站，点击了上面的恶意payload，攻击开始</li>
+</ul>
+</li>
+<li>需要将各种事件串起来，类似于剧本杀，时间、地点、事件对应上。分析、调试的能力需要加强</li>
+</ol>
+]]></content>
+      <categories>
+        <category>APT</category>
+      </categories>
+      <tags>
+        <tag>蓝队</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>以色列Cyberbit Range靶场 DAY 1-2</title>
     <url>/blog/%E4%BB%A5%E8%89%B2%E5%88%97Cyberbit-Range%E9%9D%B6%E5%9C%BA-DAY-1-2/</url>
     <content><![CDATA[<h1 id="0x00-背景"><a href="#0x00-背景" class="headerlink" title="0x00 背景"></a>0x00 背景</h1><p>学校购进了以色列著名的Cyberbit Range靶场，该靶场面向于蓝队成员。通过模拟多个攻击场景，训练蓝队队员的反入侵、溯源、取证等能力。个人觉得比较有意思，复盘一下这两天的演练情况。<br></p>
